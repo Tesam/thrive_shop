@@ -12,7 +12,7 @@ import 'package:products_api/src/models/category.dart';
 class Product extends Equatable {
   /// {@macro product}
   const Product({
-    required this.productId,
+    this.productId = '',
     required this.product,
     required this.category,
     required this.imageUrl,
@@ -22,7 +22,7 @@ class Product extends Equatable {
 
   /// The unique identifier of the product.
   ///
-  /// Cannot be empty.
+  /// Defaults to an empty string.
   final String productId;
 
   /// The name of the product.

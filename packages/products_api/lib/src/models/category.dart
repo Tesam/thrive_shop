@@ -10,14 +10,14 @@ import 'package:equatable/equatable.dart';
 class Category extends Equatable {
   /// {@macro category}
   const Category({
-    required this.categoryId,
+    this.categoryId = '',
     required this.category,
     required this.color,
   });
 
   /// The unique identifier of the category.
   ///
-  /// Cannot be empty.
+  /// Defaults to an empty string.
   final String categoryId;
 
   /// The name of the category.
