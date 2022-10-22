@@ -53,7 +53,7 @@ class Product extends Equatable {
   /// Defaults to an empty string.
   final String favoriteDate;
 
-  /// The date when the product was set as favorite.
+  /// The product image.
   ///
   /// Defaults to an null File.
   final File? productImage;
