@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:products_api/src/models/category.dart';
 
@@ -18,6 +20,7 @@ class Product extends Equatable {
     required this.imageUrl,
     this.isFavorite = false,
     this.favoriteDate = '',
+    this.productImage,
   });
 
   /// The unique identifier of the product.
@@ -50,11 +53,18 @@ class Product extends Equatable {
   /// Defaults to an empty string.
   final String favoriteDate;
 
+  /// The date when the product was set as favorite.
+  ///
+  /// Defaults to an null File.
+  final File? productImage;
+
   @override
   List<Object?> get props => [
         productId,
         product,
-        category,
+        category.categoryId,
+        category.category,
+        category.color,
         imageUrl,
         isFavorite,
         favoriteDate,
