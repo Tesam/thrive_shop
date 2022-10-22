@@ -9,10 +9,19 @@ import 'package:products_api/products_api.dart';
 // ignore_for_file: prefer_const_constructors
 import 'package:test/test.dart';
 
+class TestProductsApi extends ProductsApi {
+  TestProductsApi() : super();
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) {
+    return super.noSuchMethod(invocation);
+  }
+}
+
 void main() {
   group('ProductsApi', () {
-    test('can be instantiated', () {
-      expect(ProductsApi(), isNotNull);
+    test('can be constructed', () {
+      expect(TestProductsApi.new, returnsNormally);
     });
   });
 }
