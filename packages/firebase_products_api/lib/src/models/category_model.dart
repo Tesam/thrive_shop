@@ -3,7 +3,6 @@ import 'package:products_api/products_api.dart';
 
 part 'category_model.g.dart';
 
-@JsonSerializable(explicitToJson: true)
 /// {@template category model}
 /// A model of the [Category] entity.
 ///
@@ -12,6 +11,7 @@ part 'category_model.g.dart';
 /// [CategoryModel] is serialized and deserialized using [toJson] and
 /// [CategoryModel.fromJson] respectively.
 /// {@endtemplate}
+@JsonSerializable(explicitToJson: true)
 class CategoryModel extends Category {
   /// {@macro CategoryModel}
   const CategoryModel({
