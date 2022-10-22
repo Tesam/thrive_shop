@@ -5,8 +5,8 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:products_api/src/models/category.dart';
-import 'package:products_api/src/models/product.dart';
+import 'package:products_api/src/entities/category.dart';
+import 'package:products_api/src/entities/product.dart';
 
 /// {@template products_api}
 /// Interface for an API providing access to Products

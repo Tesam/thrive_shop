@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
-import 'package:products_api/src/models/category.dart';
+import 'package:products_api/src/entities/category.dart';
 
 /// {@template product}
 /// A single product item.
