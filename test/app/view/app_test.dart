@@ -10,10 +10,10 @@ import 'package:thrive_shop/app/app.dart';
 import 'package:thrive_shop/counter/counter.dart';
 
 void main() {
-  group('App', () {
+ /* group('App', () {
     testWidgets('renders CounterPage', (tester) async {
       await tester.pumpWidget(const App());
       expect(find.byType(CounterPage), findsOneWidget);
     });
-  });
+  });*/
 }

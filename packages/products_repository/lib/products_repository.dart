@@ -8,4 +8,5 @@
 /// A repository that handles product requests.
 library products_repository;
 
+export 'package:products_api/src/entities/entities.dart';
 export 'src/products_repository.dart';

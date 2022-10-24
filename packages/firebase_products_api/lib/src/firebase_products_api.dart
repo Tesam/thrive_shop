@@ -197,6 +197,7 @@ class FirebaseProductsApi implements ProductsApi {
           .collection('products')
           .withConverter<ProductModel>(
             fromFirestore: (snapshot, options) {
+              print('Product LIST ${snapshot.data()}');
               return ProductModel.fromJson(snapshot.data()!);
             },
             toFirestore: (value, options) {

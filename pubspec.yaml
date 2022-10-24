@@ -10,15 +10,20 @@ environment:
 dependencies:
   bloc: ^8.1.0
   cloud_firestore: ^4.0.2
+  equatable: ^2.0.5
   firebase_core: ^2.1.0
-  firebase_products_api:
-    path: packages/firebase_products_api
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  products_api:
+    path: packages/products_api
+  products_repository:
+    path: packages/products_repository
+  firebase_products_api:
+    path: packages/firebase_products_api
 
 dev_dependencies:
   bloc_test: ^9.1.0

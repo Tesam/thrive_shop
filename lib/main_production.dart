@@ -5,9 +5,10 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_products_api/firebase_products_api.dart';
 import 'package:flutter/material.dart';
-import 'package:thrive_shop/app/app.dart';
 import 'package:thrive_shop/bootstrap.dart';
 import 'package:thrive_shop/firebase_options.dart';
 
@@ -17,5 +18,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  bootstrap(() => const App());
+  final productsApi =
+      FirebaseProductsApi(fireStore: FirebaseFirestore.instance);
+
+  bootstrap(productsApi: productsApi);
 }

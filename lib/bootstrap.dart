@@ -10,6 +10,9 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:products_api/products_api.dart';
+import 'package:products_repository/products_repository.dart';
+import 'package:thrive_shop/app/app.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -25,15 +28,17 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+Future<void> bootstrap({required ProductsApi productsApi}) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
   Bloc.observer = AppBlocObserver();
 
+  final productsRepository = ProductsRepository(productsApi: productsApi);
+
   await runZonedGuarded(
-    () async => runApp(await builder()),
+    () async => runApp(App(productsRepository: productsRepository,)),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }
