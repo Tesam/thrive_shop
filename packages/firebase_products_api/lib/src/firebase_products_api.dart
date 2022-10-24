@@ -105,6 +105,7 @@ class FirebaseProductsApi implements ProductsApi {
   Future<bool> deleteCategory({required String categoryId}) {
     // final productRef = _firebaseFirestore.collection('products');
     // final categoryRef = _firebaseFirestore.collection('products');
+    //TODO: implement
     throw UnimplementedError();
   }
 
@@ -132,41 +133,43 @@ class FirebaseProductsApi implements ProductsApi {
 
   @override
   Stream<List<Product>> getFavorites() {
-    try{
+    try {
       return _firebaseFirestore
           .collection('products')
-          .where('is_favorite',isEqualTo: true)
+          .where('is_favorite', isEqualTo: true)
           .withConverter<ProductModel>(
-        fromFirestore: (snapshot, options) {
-          return ProductModel.fromJson(snapshot.data()!);
-        },
-        toFirestore: (value, options) {
-          return value.toJson();
-        },
-      )
+            fromFirestore: (snapshot, options) {
+              return ProductModel.fromJson(snapshot.data()!);
+            },
+            toFirestore: (value, options) {
+              return value.toJson();
+            },
+          )
           .snapshots()
-          .map((query) => query.docs.map((snapshot) => snapshot.data()).toList());
-    }catch(error){
+          .map((query) =>
+              query.docs.map((snapshot) => snapshot.data()).toList(),);
+    } catch (error) {
       rethrow;
     }
   }
 
   @override
   Stream<List<Product>> getProducts() {
-    try{
+    try {
       return _firebaseFirestore
           .collection('products')
           .withConverter<ProductModel>(
-        fromFirestore: (snapshot, options) {
-          return ProductModel.fromJson(snapshot.data()!);
-        },
-        toFirestore: (value, options) {
-          return value.toJson();
-        },
-      )
+            fromFirestore: (snapshot, options) {
+              return ProductModel.fromJson(snapshot.data()!);
+            },
+            toFirestore: (value, options) {
+              return value.toJson();
+            },
+          )
           .snapshots()
-          .map((query) => query.docs.map((snapshot) => snapshot.data()).toList());
-    }catch(error){
+          .map((query) =>
+              query.docs.map((snapshot) => snapshot.data()).toList(),);
+    } catch (error) {
       rethrow;
     }
   }
