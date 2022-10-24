@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Widget> contents = const [
+  final List<Widget> contents = [
     ShoppingListPage(),
     FavoritePage(),
     ProductPage(),
