@@ -21,9 +21,17 @@ class FirebaseProductsApi implements ProductsApi {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   @override
-  Future<bool> addToFavorite({required String productId}) {
-    // TODO: implement addToFavorite
-    throw UnimplementedError();
+  Future<bool> addToFavorite({required String productId}) async {
+    final productRef = _firebaseFirestore.collection('products');
+    try{
+      await productRef
+          .doc(productId)
+          .set({'is_favorite': true}, SetOptions(merge: true));
+
+      return true;
+    }catch(error){
+      rethrow;
+    }
   }
 
   @override
