@@ -54,6 +54,7 @@ class FirebaseProductsApi implements ProductsApi {
 
     batch
       ..set(categoryRef, category as CategoryModel)
+      ..update(categoryRef, {'category_id': categoryRef.id},)
       ..set(
         categoryIdentifierRef,
         {'category': categoryRef.id},
