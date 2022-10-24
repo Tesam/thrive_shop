@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
+import 'package:thrive_shop/favorites/view/favorites_page.dart';
+import 'package:thrive_shop/product/view/product_page.dart';
 import 'package:thrive_shop/shopping_list/view/shopping_list_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,6 +14,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<Widget> contents = const [
     ShoppingListPage(),
+    FavoritePage(),
+    ProductPage(),
   ];
 
   int index = 0;
@@ -62,9 +66,7 @@ class _HomePageState extends State<HomePage> {
               ),
               title: const Text('Favorites'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
+                setIndex(1);
                 Navigator.pop(context);
               },
             ),
@@ -75,9 +77,7 @@ class _HomePageState extends State<HomePage> {
               ),
               title: const Text('Items'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
+                setIndex(2);
                 Navigator.pop(context);
               },
             ),
