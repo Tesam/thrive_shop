@@ -9,7 +9,10 @@ environment:
 
 dependencies:
   bloc: ^8.1.0
+  cloud_firestore: ^4.0.2
   firebase_core: ^2.1.0
+  firebase_products_api:
+    path: packages/firebase_products_api
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1

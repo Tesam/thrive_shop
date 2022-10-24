@@ -9,3 +9,4 @@
 library firebase_products_api;
 
 export 'src/firebase_products_api.dart';
+export 'src/models/models.dart';
