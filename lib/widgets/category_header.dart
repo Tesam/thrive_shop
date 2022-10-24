@@ -31,13 +31,15 @@ class CategoryHeader extends StatelessWidget {
             child: Text(
           _category,
           style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-        )),
+        ),),
         IconButton(
           onPressed: () {},
           icon: Icon(
             Icons.expand_more,
             color: AppColors.lightColorScheme.onBackground,
           ),
+          padding: EdgeInsets.zero,
+          visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
         )
       ],
     );
