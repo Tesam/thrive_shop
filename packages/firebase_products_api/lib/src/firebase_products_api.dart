@@ -124,8 +124,16 @@ class FirebaseProductsApi implements ProductsApi {
   }
 
   @override
-  Future<bool> removeFromFavorite({required String productId}) {
-    // TODO: implement removeFromFavorite
-    throw UnimplementedError();
+  Future<bool> removeFromFavorite({required String productId}) async {
+    final productRef = _firebaseFirestore.collection('products');
+    try{
+      await productRef
+          .doc(productId)
+          .set({'is_favorite': false}, SetOptions(merge: true));
+
+      return true;
+    }catch(error){
+      rethrow;
+    }
   }
 }
