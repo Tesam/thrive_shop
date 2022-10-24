@@ -14,7 +14,7 @@ class ShoppingListPage extends StatelessWidget {
         repository: context.read<ProductsRepository>(),
       )..fetchList(),
       child: ShoppingListView(),
-     // child: Text(""),
+      // child: Text(""),
     );
   }
 }
@@ -33,15 +33,18 @@ class ShoppingListView extends StatelessWidget {
       case ListStatus.success:
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-          child:
-          Column(
+          child: Column(
             children: [
               CSMTextField(
                 textEditingController: _textEditingController,
                 text: 'Search by Product or Category',
                 isSearchTextField: true,
+                onChanged: (value) =>
+                    context.read<ShoppingListCubit>().searchList(value),
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Expanded(
                 child: ListView.separated(
                   separatorBuilder: (context, index) {
@@ -49,15 +52,14 @@ class ShoppingListView extends StatelessWidget {
                   },
                   itemBuilder: (_, index) {
                     var isSameCategory = true;
-                    final category =
-                    state.items[index].category.category;
+                    final category = state.items[index].category.category;
                     final item = state.items[index];
 
                     if (index == 0) {
                       isSameCategory = false;
                     } else {
                       final prevCategory =
-                      state.items[index - 1].category.category;
+                          state.items[index - 1].category.category;
                       isSameCategory = category == prevCategory;
                     }
 
@@ -67,7 +69,9 @@ class ShoppingListView extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 20, bottom: 10),
                             child: CategoryHeader(
-                                color: item.category.color, category: category,),
+                              color: item.category.color,
+                              category: category,
+                            ),
                           ),
                           ProductItem(
                             imageUrl: item.imageUrl,

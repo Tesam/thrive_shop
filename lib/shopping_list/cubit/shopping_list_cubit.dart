@@ -20,7 +20,31 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
     }
   }
 
- /* Future<void> deleteItem(String id) async {
+  void searchList(String query) {
+    try {
+      final productSearchList = <Product>[];
+      productSearchList.addAll(state.items);
+
+      if (query.isNotEmpty) {
+        final productListData = <Product>[];
+        for (final item in productSearchList) {
+          if (item.product.contains(query) ||
+              item.category.category.contains(query)) {
+            productListData.add(item);
+          }
+        }
+
+        emit(ShoppingListState.success(productListData));
+        return;
+      } else {
+        fetchList();
+      }
+    } on Exception {
+      emit(const ShoppingListState.failure());
+    }
+  }
+
+/* Future<void> deleteItem(String id) async {
     final deleteInProgress = state.items.map((item) {
       return item.id == id ? item.copyWith(isDeleting: true) : item;
     }).toList();

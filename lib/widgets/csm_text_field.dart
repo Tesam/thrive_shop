@@ -7,13 +7,16 @@ class CSMTextField extends StatelessWidget {
     required TextEditingController textEditingController,
     required String text,
     bool isSearchTextField = false,
+    ValueSetter<String>? onChanged,
   })  : _textEditingController = textEditingController,
         _text = text,
-        _isSearchTextField = isSearchTextField;
+        _isSearchTextField = isSearchTextField,
+        _onChanged = onChanged;
 
   final TextEditingController _textEditingController;
   final String _text;
   final bool _isSearchTextField;
+  final ValueSetter<String>? _onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +25,7 @@ class CSMTextField extends StatelessWidget {
       style: TextStyle(
         color: AppColors.lightColorScheme.onPrimaryContainer,
       ),
+      onChanged: _onChanged,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(15),
         labelText: _text,
