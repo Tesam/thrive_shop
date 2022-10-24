@@ -102,11 +102,46 @@ class FirebaseProductsApi implements ProductsApi {
   }
 
   @override
-  Future<bool> deleteCategory({required String categoryId}) {
-    // final productRef = _firebaseFirestore.collection('products');
-    // final categoryRef = _firebaseFirestore.collection('products');
-    //TODO: implement
-    throw UnimplementedError();
+  Future<bool> deleteCategory({required String categoryId}) async {
+    final batch = _firebaseFirestore.batch();
+
+    final categoryRef = _firebaseFirestore.collection('categories');
+    final categoryIdentifiersRef =
+        _firebaseFirestore.collection('category-identifiers');
+    final productRef = _firebaseFirestore.collection('products');
+
+    final snapshot = await categoryRef.doc(categoryId).get();
+    final categoryName = snapshot.get('category').toString();
+
+    batch
+      ..delete(categoryRef.doc(categoryId))
+      ..delete(categoryIdentifiersRef.doc(categoryName));
+
+    try {
+      // TODO(Techi): add transaction for delete products and batches.
+      final categoryProducts = await productRef
+          .where('category.category', isEqualTo: categoryName)
+          .withConverter<ProductModel>(
+            fromFirestore: (snapshot, options) {
+              return ProductModel.fromJson(snapshot.data()!);
+            },
+            toFirestore: (value, options) {
+              return value.toJson();
+            },
+          )
+          .get()
+          .then((value) => value.docs);
+
+      for (final product in categoryProducts) {
+        await deleteProduct(productId: product.data().productId);
+      }
+
+      await batch.commit();
+
+      return true;
+    } catch (error) {
+      rethrow;
+    }
   }
 
   @override
@@ -146,8 +181,9 @@ class FirebaseProductsApi implements ProductsApi {
             },
           )
           .snapshots()
-          .map((query) =>
-              query.docs.map((snapshot) => snapshot.data()).toList(),);
+          .map(
+            (query) => query.docs.map((snapshot) => snapshot.data()).toList(),
+          );
     } catch (error) {
       rethrow;
     }
@@ -167,8 +203,9 @@ class FirebaseProductsApi implements ProductsApi {
             },
           )
           .snapshots()
-          .map((query) =>
-              query.docs.map((snapshot) => snapshot.data()).toList(),);
+          .map(
+            (query) => query.docs.map((snapshot) => snapshot.data()).toList(),
+          );
     } catch (error) {
       rethrow;
     }
