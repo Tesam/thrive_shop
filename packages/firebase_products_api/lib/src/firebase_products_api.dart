@@ -132,24 +132,43 @@ class FirebaseProductsApi implements ProductsApi {
 
   @override
   Stream<List<Product>> getFavorites() {
-    // TODO: implement getFavorites
-    throw UnimplementedError();
+    try{
+      return _firebaseFirestore
+          .collection('products')
+          .where('is_favorite',isEqualTo: true)
+          .withConverter<ProductModel>(
+        fromFirestore: (snapshot, options) {
+          return ProductModel.fromJson(snapshot.data()!);
+        },
+        toFirestore: (value, options) {
+          return value.toJson();
+        },
+      )
+          .snapshots()
+          .map((query) => query.docs.map((snapshot) => snapshot.data()).toList());
+    }catch(error){
+      rethrow;
+    }
   }
 
   @override
   Stream<List<Product>> getProducts() {
-    return _firebaseFirestore
-        .collection('products')
-        .withConverter<ProductModel>(
-          fromFirestore: (snapshot, options) {
-            return ProductModel.fromJson(snapshot.data()!);
-          },
-          toFirestore: (value, options) {
-            return value.toJson();
-          },
-        )
-        .snapshots()
-        .map((query) => query.docs.map((snapshot) => snapshot.data()).toList());
+    try{
+      return _firebaseFirestore
+          .collection('products')
+          .withConverter<ProductModel>(
+        fromFirestore: (snapshot, options) {
+          return ProductModel.fromJson(snapshot.data()!);
+        },
+        toFirestore: (value, options) {
+          return value.toJson();
+        },
+      )
+          .snapshots()
+          .map((query) => query.docs.map((snapshot) => snapshot.data()).toList());
+    }catch(error){
+      rethrow;
+    }
   }
 
   @override
