@@ -43,7 +43,10 @@ class ShoppingListView extends StatelessWidget {
               ),
               const SizedBox(height: 20,),
               Expanded(
-                child: ListView.builder(
+                child: ListView.separated(
+                  separatorBuilder: (context, index) {
+                    return const Divider();
+                  },
                   itemBuilder: (_, index) {
                     var isSameCategory = true;
                     final category =
