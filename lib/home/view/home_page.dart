@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
+import 'package:thrive_shop/shopping_list/view/shopping_list_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final List<Widget> contents = const [
+    ShoppingListPage(),
+  ];
+
+  int index = 0;
+
+  void setIndex(int value) {
+    setState(() {
+      index = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +51,7 @@ class HomePage extends StatelessWidget {
               ),
               title: const Text('Shopping List'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
+                setIndex(0);
                 Navigator.pop(context);
               },
             ),
@@ -68,6 +84,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      body: contents[index],
     );
   }
 }
