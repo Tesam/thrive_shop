@@ -88,6 +88,7 @@ class FirebaseProductsApi implements ProductsApi {
 
     batch
       ..set(productRef, product as ProductModel)
+      ..update(productRef, {'product_id': productRef.id},)
       ..set(
         productIdentifierRef,
         {'product': productRef.id},
