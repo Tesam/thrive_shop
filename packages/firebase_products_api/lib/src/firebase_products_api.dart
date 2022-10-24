@@ -23,13 +23,13 @@ class FirebaseProductsApi implements ProductsApi {
   @override
   Future<bool> addToFavorite({required String productId}) async {
     final productRef = _firebaseFirestore.collection('products');
-    try{
+    try {
       await productRef
           .doc(productId)
           .set({'is_favorite': true}, SetOptions(merge: true));
 
       return true;
-    }catch(error){
+    } catch (error) {
       rethrow;
     }
   }
@@ -52,7 +52,8 @@ class FirebaseProductsApi implements ProductsApi {
         )
         .doc(category.category);
 
-    batch..set(categoryRef, category as CategoryModel)
+    batch
+      ..set(categoryRef, category as CategoryModel)
       ..set(
         categoryIdentifierRef,
         {'category': categoryRef.id},
@@ -73,19 +74,20 @@ class FirebaseProductsApi implements ProductsApi {
     final productRef = _firebaseFirestore
         .collection('products')
         .withConverter<ProductModel>(
-      fromFirestore: (snapshot, _) =>
-          ProductModel.fromJson(snapshot.data()!),
-      toFirestore: (product, _) => product.toJson(),
-    )
+          fromFirestore: (snapshot, _) =>
+              ProductModel.fromJson(snapshot.data()!),
+          toFirestore: (product, _) => product.toJson(),
+        )
         .doc();
 
     final productIdentifierRef = _firebaseFirestore
         .collection(
-      'product-identifiers',
-    )
+          'product-identifiers',
+        )
         .doc(product.product);
 
-    batch..set(productRef, product as ProductModel)
+    batch
+      ..set(productRef, product as ProductModel)
       ..set(
         productIdentifierRef,
         {'product': productRef.id},
@@ -106,9 +108,14 @@ class FirebaseProductsApi implements ProductsApi {
   }
 
   @override
-  Future<bool> deleteProduct({required String productId}) {
-    // TODO: implement deleteProduct
-    throw UnimplementedError();
+  Future<bool> deleteProduct({required String productId}) async {
+    final productRef = _firebaseFirestore.collection('products');
+    try {
+      await productRef.doc(productId).delete();
+      return true;
+    } catch (error) {
+      rethrow;
+    }
   }
 
   @override
@@ -126,13 +133,13 @@ class FirebaseProductsApi implements ProductsApi {
   @override
   Future<bool> removeFromFavorite({required String productId}) async {
     final productRef = _firebaseFirestore.collection('products');
-    try{
+    try {
       await productRef
           .doc(productId)
           .set({'is_favorite': false}, SetOptions(merge: true));
 
       return true;
-    }catch(error){
+    } catch (error) {
       rethrow;
     }
   }
