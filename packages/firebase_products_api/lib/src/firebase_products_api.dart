@@ -60,9 +60,35 @@ class FirebaseProductsApi implements ProductsApi {
   }
 
   @override
-  Future<bool> createProduct({required Product product}) {
-    // TODO: implement createProduct
-    throw UnimplementedError();
+  Future<bool> createProduct({required Product product}) async {
+    final batch = _firebaseFirestore.batch();
+    final productRef = _firebaseFirestore
+        .collection('products')
+        .withConverter<ProductModel>(
+      fromFirestore: (snapshot, _) =>
+          ProductModel.fromJson(snapshot.data()!),
+      toFirestore: (product, _) => product.toJson(),
+    )
+        .doc();
+
+    final productIdentifierRef = _firebaseFirestore
+        .collection(
+      'product-identifiers',
+    )
+        .doc(product.product);
+
+    batch..set(productRef, product as ProductModel)
+      ..set(
+        productIdentifierRef,
+        {'product': productRef.id},
+      );
+
+    try {
+      await batch.commit();
+      return true;
+    } catch (error) {
+      rethrow;
+    }
   }
 
   @override
