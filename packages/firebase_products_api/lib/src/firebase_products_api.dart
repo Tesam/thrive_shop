@@ -103,8 +103,8 @@ class FirebaseProductsApi implements ProductsApi {
 
   @override
   Future<bool> deleteCategory({required String categoryId}) {
-    final productRef = _firebaseFirestore.collection('products');
-    final categoryRef = _firebaseFirestore.collection('products');
+    // final productRef = _firebaseFirestore.collection('products');
+    // final categoryRef = _firebaseFirestore.collection('products');
     throw UnimplementedError();
   }
 
@@ -113,14 +113,15 @@ class FirebaseProductsApi implements ProductsApi {
     final batch = _firebaseFirestore.batch();
 
     final productRef = _firebaseFirestore.collection('products');
-    final productIdentifiersRef = _firebaseFirestore
-        .collection('product-identifiers');
+    final productIdentifiersRef =
+        _firebaseFirestore.collection('product-identifiers');
 
     final snapshot = await productRef.doc(productId).get();
     final productName = snapshot.get('product').toString();
 
-    batch..delete(productRef.doc(productId))
-    ..delete(productIdentifiersRef.doc(productName));
+    batch
+      ..delete(productRef.doc(productId))
+      ..delete(productIdentifiersRef.doc(productName));
     try {
       await batch.commit();
       return true;
@@ -137,8 +138,18 @@ class FirebaseProductsApi implements ProductsApi {
 
   @override
   Stream<List<Product>> getProducts() {
-    // TODO: implement getProducts
-    throw UnimplementedError();
+    return _firebaseFirestore
+        .collection('products')
+        .withConverter<ProductModel>(
+          fromFirestore: (snapshot, options) {
+            return ProductModel.fromJson(snapshot.data()!);
+          },
+          toFirestore: (value, options) {
+            return value.toJson();
+          },
+        )
+        .snapshots()
+        .map((query) => query.docs.map((snapshot) => snapshot.data()).toList());
   }
 
   @override
