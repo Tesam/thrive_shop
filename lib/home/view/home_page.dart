@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
-import 'package:thrive_shop/favorites/view/favorites_page.dart';
-import 'package:thrive_shop/product/view/product_page.dart';
-import 'package:thrive_shop/shopping_list/view/shopping_list_page.dart';
+import 'package:thrive_shop/favorites/favorites.dart';
+import 'package:thrive_shop/product/product.dart';
+import 'package:thrive_shop/shopping_list/shopping_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
