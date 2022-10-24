@@ -14,11 +14,10 @@ import 'package:products_api/products_api.dart';
 /// {@endtemplate}
 class FirebaseProductsApi implements ProductsApi {
   /// {@macro firebase_products_api}
-  /*const FirebaseProductsApi({required FirebaseFirestore fireStore})
-      : _firebaseFirestore = fireStore;*/
-  FirebaseProductsApi();
+  const FirebaseProductsApi({required FirebaseFirestore fireStore})
+      : _firebaseFirestore = fireStore;
 
-  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firebaseFirestore;
 
   @override
   Future<bool> addToFavorite({required String productId}) async {
