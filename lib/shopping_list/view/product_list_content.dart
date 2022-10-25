@@ -44,19 +44,13 @@ class ProductListContent extends StatelessWidget {
                         category: item.category,
                       ),
                       ShoppingListItem(
-                        productId: item.productId,
-                        product: item.product,
-                        isFavorite: item.isFavorite,
-                        imageUrl: item.imageUrl,
+                        product: item,
                       ),
                     ],
                   );
                 } else {
-                  return ShoppingListItem(
-                    productId: item.productId,
-                    product: item.product,
-                    isFavorite: item.isFavorite,
-                    imageUrl: item.imageUrl,
+                  return  ShoppingListItem(
+                    product: item,
                   );
                 }
               },

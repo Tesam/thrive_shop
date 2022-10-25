@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:products_api/products_api.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
 import 'package:thrive_shop/shopping_list/cubit/shopping_list_cubit.dart';
 import 'package:thrive_shop/widgets/delete_swipe_background.dart';
@@ -9,24 +10,15 @@ import 'package:thrive_shop/widgets/product_item.dart';
 class ShoppingListItem extends StatelessWidget {
   const ShoppingListItem({
     super.key,
-    required String productId,
-    required String product,
-    required bool isFavorite,
-    required String imageUrl,
-  })  : _productId = productId,
-        _product = product,
-        _isFavorite = isFavorite,
-        _imageUrl = imageUrl;
+    required Product product,
+  })  : _product = product;
 
-  final String _productId;
-  final String _product;
-  final bool _isFavorite;
-  final String _imageUrl;
+  final Product _product;
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: ValueKey<String>(_productId),
+      key: ValueKey<String>(_product.productId),
       background: const FavoriteSwipeBackground(),
       secondaryBackground: const DeleteSwipeBackground(),
       confirmDismiss: (direction) {
@@ -35,9 +27,9 @@ class ShoppingListItem extends StatelessWidget {
             context: context,
             builder: (BuildContext dialogContext) {
               return AlertDialog(
-                title: Text('Delete $_product'),
-                content: Text('Are you sure you want to '
-                    'delete $_product?'),
+                title: Text('Delete ${_product.product}'),
+                content: Text('Are you sure you want to delete '
+                    '${_product.product}?'),
                 actions: <Widget>[
                   TextButton(
                     child: const Text(
@@ -55,7 +47,7 @@ class ShoppingListItem extends StatelessWidget {
                     ),
                     onPressed: () {
                       context.read<ShoppingListCubit>().deleteProduct(
-                            productId: _productId,
+                            productId: _product.productId,
                           );
                       Navigator.of(dialogContext).pop();
                     },
@@ -69,14 +61,14 @@ class ShoppingListItem extends StatelessWidget {
             context: context,
             builder: (BuildContext dialogContext) {
               return AlertDialog(
-                title: _isFavorite
+                title: _product.isFavorite
                     ? const Text('Delete from favorites?')
                     : const Text('Add to favorites?'),
-                content: _isFavorite
+                content: _product.isFavorite
                     ? Text('Do you want to remove '
-                        '$_product from favorites?')
+                        '${_product.product} from favorites?')
                     : Text('Do you want to add '
-                        '$_product to favorites?'),
+                        '${_product.product} to favorites?'),
                 actions: <Widget>[
                   TextButton(
                     child: const Text(
@@ -89,8 +81,8 @@ class ShoppingListItem extends StatelessWidget {
                   ),
                   TextButton(
                     child: Text(
-                      _isFavorite ? 'REMOVE' : 'ADD',
-                      style: _isFavorite
+                      (_product.isFavorite) ? 'REMOVE' : 'ADD',
+                      style: (_product.isFavorite)
                           ? TextStyle(
                               color: AppColors.lightColorScheme.error,
                             )
@@ -101,8 +93,8 @@ class ShoppingListItem extends StatelessWidget {
                     onPressed: () {
                       final isSuccessful =
                           context.read<ShoppingListCubit>().setFavoriteState(
-                                isFavorite: _isFavorite,
-                                productId: _productId,
+                                isFavorite: _product.isFavorite,
+                                productId: _product.productId,
                               );
 
                       if (isSuccessful) {
@@ -112,12 +104,11 @@ class ShoppingListItem extends StatelessWidget {
                           SnackBar(
                             backgroundColor:
                                 AppColors.lightColorScheme.secondary,
-                            content: _isFavorite
-                                ? const Text('The product was removed '
-                                    'from Favorites '
-                                    'successfully!')
-                                : const Text('The product was add to '
-                                    'Favorites successfully!'),
+                            content: (_product.isFavorite)
+                                ? const Text('The product was removed from '
+                                'Favorites successfully!')
+                                : const Text('The product was add to Favorites '
+                                'successfully!'),
                           ),
                         );
                       }
@@ -131,26 +122,23 @@ class ShoppingListItem extends StatelessWidget {
         }
       },
       child: ProductItem(
-        imageUrl: _imageUrl,
-        isFavorite: _isFavorite,
         product: _product,
         onFavorite: () {
           final isSuccessful =
               context.read<ShoppingListCubit>().setFavoriteState(
-                    isFavorite: _isFavorite,
-                    productId: _productId,
+                    isFavorite: _product.isFavorite,
+                    productId: _product.productId,
                   );
 
           if (isSuccessful) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: AppColors.lightColorScheme.secondary,
-                content: _isFavorite
-                    ? const Text('The product was removed '
-                        'from Favorites '
+                content: _product.isFavorite
+                    ? const Text('The product was removed from Favorites '
                         'successfully!')
-                    : const Text('The product was add to '
-                        'Favorites successfully!'),
+                    : const Text('The product was add to Favorites '
+                    'successfully!'),
               ),
             );
           }

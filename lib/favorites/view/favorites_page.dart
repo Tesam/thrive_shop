@@ -151,9 +151,7 @@ class FavoritesView extends StatelessWidget {
                                       },);
                                   }
                                     , child:  ProductItem(
-                                  imageUrl: item.imageUrl,
-                                  isFavorite: item.isFavorite,
-                                  product: item.product,
+                                  product: item,
                                   onFavorite: () {
                                     final isSuccessful = context
                                         .read<FavoritesCubit>()
@@ -254,9 +252,7 @@ class FavoritesView extends StatelessWidget {
                                   },);
                               }
                               , child:  ProductItem(
-                              imageUrl: item.imageUrl,
-                              isFavorite: item.isFavorite,
-                              product: item.product,
+                              product: item,
                               onFavorite: () {
                                 final isSuccessful = context
                                     .read<FavoritesCubit>()
