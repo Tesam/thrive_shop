@@ -11,7 +11,7 @@ class ProductListItem extends StatelessWidget {
   const ProductListItem({
     super.key,
     required Product product,
-  })  : _product = product;
+  }) : _product = product;
 
   final Product _product;
 
@@ -106,9 +106,9 @@ class ProductListItem extends StatelessWidget {
                                 AppColors.lightColorScheme.secondary,
                             content: (_product.isFavorite)
                                 ? const Text('The product was removed from '
-                                'Favorites successfully!')
+                                    'Favorites successfully!')
                                 : const Text('The product was add to Favorites '
-                                'successfully!'),
+                                    'successfully!'),
                           ),
                         );
                       }
@@ -123,27 +123,28 @@ class ProductListItem extends StatelessWidget {
       },
       child: ProductItem(
         product: _product,
-        onFavorite: () {
-          final isSuccessful =
-              context.read<ShoppingListCubit>().setFavoriteState(
-                    isFavorite: _product.isFavorite,
-                    productId: _product.productId,
-                  );
-
-          if (isSuccessful) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                backgroundColor: AppColors.lightColorScheme.secondary,
-                content: _product.isFavorite
-                    ? const Text('The product was removed from Favorites '
-                        'successfully!')
-                    : const Text('The product was add to Favorites '
-                    'successfully!'),
-              ),
-            );
-          }
-        },
+        onFavorite: () => _onFavorite(context),
       ),
     );
+  }
+
+  void _onFavorite(BuildContext context) {
+    final isSuccessful = context.read<ShoppingListCubit>().setFavoriteState(
+          isFavorite: _product.isFavorite,
+          productId: _product.productId,
+        );
+
+    if (isSuccessful) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: AppColors.lightColorScheme.secondary,
+          content: _product.isFavorite
+              ? const Text('The product was removed from Favorites '
+                  'successfully!')
+              : const Text('The product was add to Favorites '
+                  'successfully!'),
+        ),
+      );
+    }
   }
 }
