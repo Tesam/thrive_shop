@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/products_api.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
-import 'package:thrive_shop/shopping_list/widgets/shopping_list_header.dart';
-import 'package:thrive_shop/shopping_list/widgets/shopping_list_item.dart';
+import 'package:thrive_shop/shopping_list/widgets/widgets.dart';
 
 class ProductListContent extends StatelessWidget {
   const ProductListContent({super.key, required List<Product> items})
@@ -15,7 +14,8 @@ class ProductListContent extends StatelessWidget {
     return Expanded(
       child: (_items.isEmpty)
           ? Center(
-              child: Text("Oops you don't have any product!",
+              child: Text(
+                "Oops you don't have any product!",
                 style: TextStyle(
                   color: AppColors.lightColorScheme.onPrimaryContainer,
                 ),
@@ -40,16 +40,16 @@ class ProductListContent extends StatelessWidget {
                 if (index == 0 || !isSameCategory) {
                   return Column(
                     children: [
-                      ShoppingListHeader(
+                      ProductListHeader(
                         category: item.category,
                       ),
-                      ShoppingListItem(
+                      ProductListItem(
                         product: item,
                       ),
                     ],
                   );
                 } else {
-                  return  ShoppingListItem(
+                  return ProductListItem(
                     product: item,
                   );
                 }

@@ -7,8 +7,8 @@ import 'package:thrive_shop/widgets/delete_swipe_background.dart';
 import 'package:thrive_shop/widgets/favorite_swipe_background.dart';
 import 'package:thrive_shop/widgets/product_item.dart';
 
-class ShoppingListItem extends StatelessWidget {
-  const ShoppingListItem({
+class ProductListItem extends StatelessWidget {
+  const ProductListItem({
     super.key,
     required Product product,
   })  : _product = product;

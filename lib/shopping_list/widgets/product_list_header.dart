@@ -6,8 +6,8 @@ import 'package:thrive_shop/shopping_list/cubit/shopping_list_cubit.dart';
 import 'package:thrive_shop/widgets/category_header.dart';
 import 'package:thrive_shop/widgets/delete_swipe_background.dart';
 
-class ShoppingListHeader extends StatelessWidget {
-  const ShoppingListHeader({super.key, required Category category})
+class ProductListHeader extends StatelessWidget {
+  const ProductListHeader({super.key, required Category category})
       : _category = category;
 
   final Category _category;
