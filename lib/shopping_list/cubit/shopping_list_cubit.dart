@@ -66,6 +66,14 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
     }
   }
 
+  void deleteCategory({required String categoryId}) {
+    try {
+      repository.deleteCategory(categoryId: categoryId);
+    } on Exception {
+      emit(const ShoppingListState.failure());
+    }
+  }
+
 /* Future<void> deleteItem(String id) async {
     final deleteInProgress = state.items.map((item) {
       return item.id == id ? item.copyWith(isDeleting: true) : item;

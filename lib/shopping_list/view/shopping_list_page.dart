@@ -6,14 +6,18 @@ import 'package:thrive_shop/shopping_list/cubit/shopping_list_cubit.dart';
 import 'package:thrive_shop/widgets/widgets.dart';
 
 class ShoppingListPage extends StatelessWidget {
-  const ShoppingListPage({super.key});
+  const ShoppingListPage
+
+  ({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ShoppingListCubit(
+      create: (_) =>
+      ShoppingListCubit(
         repository: context.read<ProductsRepository>(),
-      )..fetchList(),
+      )
+        ..fetchList(),
       child: ShoppingListView(),
       // child: Text(""),
     );
@@ -21,13 +25,17 @@ class ShoppingListPage extends StatelessWidget {
 }
 
 class ShoppingListView extends StatelessWidget {
-  ShoppingListView({super.key});
+  ShoppingListView
+
+  ({super.key});
 
   final TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<ShoppingListCubit>().state;
+    final state = context
+        .watch<ShoppingListCubit>()
+        .state;
     switch (state.status) {
       case ListStatus.failure:
         return const Center(child: Text('Oops something went wrong!'));
@@ -70,8 +78,12 @@ class ShoppingListView extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 20, bottom: 10),
                             child: CategoryHeader(
-                              color: item.category.color,
-                              category: category,
+                                color: item.category.color,
+                                category: category,
+                                onDelete: () =>
+                                    context.read<ShoppingListCubit>()
+                                        .deleteCategory(
+                                        categoryId: item.category.categoryId,),
                             ),
                           ),
                           ProductItem(
@@ -82,29 +94,30 @@ class ShoppingListView extends StatelessWidget {
                               final isSuccessful = context
                                   .read<ShoppingListCubit>()
                                   .setFavoriteState(
-                                    isFavorite: item.isFavorite,
-                                    productId: item.productId,
-                                  );
+                                isFavorite: item.isFavorite,
+                                productId: item.productId,
+                              );
 
                               if (isSuccessful) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     backgroundColor:
-                                        AppColors.lightColorScheme.secondary,
+                                    AppColors.lightColorScheme.secondary,
                                     content: (item.isFavorite)
                                         ? const Text(
-                                            'The product was removed from '
-                                                'Favorites successfully!')
+                                        'The product was removed from '
+                                            'Favorites successfully!')
                                         : const Text(
-                                            'The product was add to '
-                                                'Favorites successfully!'),
+                                        'The product was add to '
+                                            'Favorites successfully!'),
                                   ),
                                 );
                               }
                             },
-                            onDelete: () => context
-                                .read<ShoppingListCubit>()
-                                .deleteProduct(productId: item.productId),
+                            onDelete: () =>
+                                context
+                                    .read<ShoppingListCubit>()
+                                    .deleteProduct(productId: item.productId),
                           ),
                         ],
                       );
@@ -137,9 +150,10 @@ class ShoppingListView extends StatelessWidget {
                             );
                           }
                         },
-                        onDelete: () => context
-                            .read<ShoppingListCubit>()
-                            .deleteProduct(productId: item.productId),
+                        onDelete: () =>
+                            context
+                                .read<ShoppingListCubit>()
+                                .deleteProduct(productId: item.productId),
                       );
                     }
                   },
