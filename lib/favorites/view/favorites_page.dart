@@ -82,7 +82,76 @@ class FavoritesView extends StatelessWidget {
                                     category: category,
                                   ),
                                 ),
-                                ProductItem(
+                                Dismissible(
+                                    key: ValueKey<String>(item.productId),
+                                    background: const FavoriteSwipeBackground(),
+                                    secondaryBackground:
+                                      const FavoriteSwipeBackground(),
+                                  confirmDismiss: (direction) {
+                                    return showDialog(
+                                      context: context,
+                                      builder: (BuildContext dialogContext) {
+                                        return AlertDialog(
+                                          title: item.isFavorite
+                                              ? const Text('Delete from '
+                                              'favorites?')
+                                              : const Text('Add to favorites?'),
+                                          content: item.isFavorite
+                                              ? Text('Do you want to remove ${item.product} from favorites?')
+                                              : Text('Do you want to add ${item.product} to favorites?'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: const Text(
+                                                'Cancel',
+                                                style: TextStyle(color: Colors.black),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.of(dialogContext).pop();
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: Text(
+                                                item.isFavorite ? 'REMOVE' : 'ADD',
+                                                style: item.isFavorite
+                                                    ? TextStyle(
+                                                  color: AppColors.lightColorScheme.error,)
+                                                    : TextStyle(
+                                                  color: AppColors.lightColorScheme.secondary,),
+                                              ),
+                                              onPressed: () {
+                                                final isSuccessful = context
+                                                    .read<FavoritesCubit>()
+                                                    .setFavoriteState(
+                                                  isFavorite: item.isFavorite,
+                                                  productId: item.productId,
+                                                );
+
+                                                if (isSuccessful) {
+                                                  ScaffoldMessenger.of(dialogContext)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      backgroundColor: AppColors
+                                                          .lightColorScheme.secondary,
+                                                      content: (item.isFavorite)
+                                                          ? const Text(
+                                                          'The product was removed '
+                                                              'from Favorites '
+                                                              'successfully!')
+                                                          : const Text(
+                                                          'The product was add to '
+                                                              'Favorites successfully!'),
+                                                    ),
+                                                  );
+                                                }
+
+                                                Navigator.of(dialogContext).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },);
+                                  }
+                                    , child:  ProductItem(
                                   imageUrl: item.imageUrl,
                                   isFavorite: item.isFavorite,
                                   product: item.product,
@@ -90,9 +159,9 @@ class FavoritesView extends StatelessWidget {
                                     final isSuccessful = context
                                         .read<FavoritesCubit>()
                                         .setFavoriteState(
-                                          isFavorite: item.isFavorite,
-                                          productId: item.productId,
-                                        );
+                                      isFavorite: item.isFavorite,
+                                      productId: item.productId,
+                                    );
 
                                     if (isSuccessful) {
                                       ScaffoldMessenger.of(context)
@@ -102,22 +171,90 @@ class FavoritesView extends StatelessWidget {
                                               .lightColorScheme.secondary,
                                           content: (item.isFavorite)
                                               ? const Text(
-                                                  'The product was removed '
+                                              'The product was removed '
                                                   'from Favorites '
                                                   'successfully!')
                                               : const Text(
-                                                  'The product was add to '
+                                              'The product was add to '
                                                   'Favorites successfully!'),
                                         ),
                                       );
                                     }
                                   },
-                                  onDelete: () {},
-                                ),
+                                ),),
                               ],
                             );
                           } else {
-                            return ProductItem(
+                            return  Dismissible(
+                              key: ValueKey<String>(item.productId),
+                              background: const FavoriteSwipeBackground(),
+                              secondaryBackground:
+                              const FavoriteSwipeBackground(),
+                              confirmDismiss: (direction) {
+                                return showDialog(
+                                  context: context,
+                                  builder: (BuildContext dialogContext) {
+                                    return AlertDialog(
+                                      title: item.isFavorite
+                                          ? const Text('Delete from '
+                                          'favorites?')
+                                          : const Text('Add to favorites?'),
+                                      content: item.isFavorite
+                                          ? Text('Do you want to remove ${item.product} from favorites?')
+                                          : Text('Do you want to add ${item.product} to favorites?'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text(
+                                            'Cancel',
+                                            style: TextStyle(color: Colors.black),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.of(dialogContext).pop();
+                                          },
+                                        ),
+                                        TextButton(
+                                          child: Text(
+                                            item.isFavorite ? 'REMOVE' : 'ADD',
+                                            style: item.isFavorite
+                                                ? TextStyle(
+                                              color: AppColors.lightColorScheme.error,)
+                                                : TextStyle(
+                                              color: AppColors.lightColorScheme.secondary,),
+                                          ),
+                                          onPressed: () {
+                                            final isSuccessful = context
+                                                .read<FavoritesCubit>()
+                                                .setFavoriteState(
+                                              isFavorite: item.isFavorite,
+                                              productId: item.productId,
+                                            );
+
+                                            if (isSuccessful) {
+                                              ScaffoldMessenger.of(dialogContext)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  backgroundColor: AppColors
+                                                      .lightColorScheme.secondary,
+                                                  content: (item.isFavorite)
+                                                      ? const Text(
+                                                      'The product was removed '
+                                                          'from Favorites '
+                                                          'successfully!')
+                                                      : const Text(
+                                                      'The product was add to '
+                                                          'Favorites successfully!'),
+                                                ),
+                                              );
+                                            }
+
+                                            Navigator.of(dialogContext).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },);
+                              }
+                              , child:  ProductItem(
                               imageUrl: item.imageUrl,
                               isFavorite: item.isFavorite,
                               product: item.product,
@@ -125,27 +262,29 @@ class FavoritesView extends StatelessWidget {
                                 final isSuccessful = context
                                     .read<FavoritesCubit>()
                                     .setFavoriteState(
-                                      isFavorite: item.isFavorite,
-                                      productId: item.productId,
-                                    );
+                                  isFavorite: item.isFavorite,
+                                  productId: item.productId,
+                                );
 
                                 if (isSuccessful) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(
                                     SnackBar(
-                                      backgroundColor:
-                                          AppColors.lightColorScheme.secondary,
+                                      backgroundColor: AppColors
+                                          .lightColorScheme.secondary,
                                       content: (item.isFavorite)
                                           ? const Text(
-                                              'The product was removed from '
-                                              'Favorites successfully!')
-                                          : const Text('The product was add to '
+                                          'The product was removed '
+                                              'from Favorites '
+                                              'successfully!')
+                                          : const Text(
+                                          'The product was add to '
                                               'Favorites successfully!'),
                                     ),
                                   );
                                 }
                               },
-                              onDelete: () {},
-                            );
+                            ),);
                           }
                         },
                         itemCount: state.items.length,
