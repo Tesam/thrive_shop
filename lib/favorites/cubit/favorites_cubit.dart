@@ -4,8 +4,8 @@ import 'package:products_repository/products_repository.dart';
 
 part 'favorites_state.dart';
 
-class FavoriteListCubit extends Cubit<FavoritesState> {
-  FavoriteListCubit({required this.repository})
+class FavoritesCubit extends Cubit<FavoritesState> {
+  FavoritesCubit({required this.repository})
       : super(const FavoritesState.loading());
 
   final ProductsRepository repository;
