@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:products_repository/products_repository.dart';
@@ -9,10 +11,11 @@ class FavoritesCubit extends Cubit<FavoritesState> {
       : super(const FavoritesState.loading());
 
   final ProductsRepository repository;
+  late StreamSubscription<dynamic> itemsSubscription;
 
   void fetchList() {
     try {
-      repository.getFavorites().listen((items) {
+      itemsSubscription = repository.getFavorites().listen((items) {
         emit(FavoritesState.success(items));
       });
     } on Exception {
@@ -32,6 +35,12 @@ class FavoritesCubit extends Cubit<FavoritesState> {
       emit(const FavoritesState.failure());
       return false;
     }
+  }
+
+  @override
+  Future<void> close() {
+    itemsSubscription.cancel();
+    return super.close();
   }
 
 /* Future<void> deleteItem(String id) async {

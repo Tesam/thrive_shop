@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:products_repository/products_repository.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
 import 'package:thrive_shop/favorites/cubit/favorites_cubit.dart';
-import 'package:thrive_shop/shopping_list/cubit/shopping_list_cubit.dart';
 import 'package:thrive_shop/widgets/widgets.dart';
 
 class FavoritesPage extends StatelessWidget {
@@ -125,7 +124,7 @@ class FavoritesView extends StatelessWidget {
                               product: item.product,
                               onFavorite: () {
                                 final isSuccessful = context
-                                    .read<ShoppingListCubit>()
+                                    .read<FavoritesCubit>()
                                     .setFavoriteState(
                                       isFavorite: item.isFavorite,
                                       productId: item.productId,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:products_repository/products_repository.dart';
@@ -9,10 +11,11 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
       : super(const ShoppingListState.loading());
 
   final ProductsRepository repository;
+  late StreamSubscription<dynamic> itemsSubscription;
 
   void fetchList() {
     try {
-      repository.getProducts().listen((items) {
+      itemsSubscription = repository.getProducts().listen((items) {
         emit(ShoppingListState.success(items));
       });
     } on Exception {
@@ -46,9 +49,9 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
 
   bool setFavoriteState({required bool isFavorite, required String productId}) {
     try {
-      if(isFavorite){
+      if (isFavorite) {
         repository.removeFromFavorite(productId: productId);
-      }else{
+      } else {
         repository.addToFavorite(productId: productId);
       }
       return true;
@@ -74,6 +77,11 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
     }
   }
 
+  @override
+  Future<void> close() {
+    itemsSubscription.cancel();
+    return super.close();
+  }
 /* Future<void> deleteItem(String id) async {
     final deleteInProgress = state.items.map((item) {
       return item.id == id ? item.copyWith(isDeleting: true) : item;
