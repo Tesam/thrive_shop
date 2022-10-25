@@ -79,7 +79,7 @@ class ShoppingListView extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      top: 20, bottom: 10),
+                                      top: 20, bottom: 10,),
                                   child: CategoryHeader(
                                     color: item.category.color,
                                     category: category,
@@ -110,8 +110,9 @@ class ShoppingListView extends StatelessWidget {
                                               .lightColorScheme.secondary,
                                           content: (item.isFavorite)
                                               ? const Text(
-                                                  'The product was removed from '
-                                                  'Favorites successfully!')
+                                                  'The product was removed '
+                                                      'from Favorites '
+                                                      'successfully!')
                                               : const Text(
                                                   'The product was add to '
                                                   'Favorites successfully!'),

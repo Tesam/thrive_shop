@@ -28,7 +28,6 @@ class CSMTextField extends StatelessWidget {
       onChanged: _onChanged,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(15),
-        labelText: _text,
         hintText: _text,
         prefixIcon: _isSearchTextField ? const Icon(Icons.search) : null,
         labelStyle: TextStyle(
