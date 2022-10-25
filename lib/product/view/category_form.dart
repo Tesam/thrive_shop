@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:products_repository/products_repository.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
 import 'package:thrive_shop/product/cubit/category_form_cubit.dart';
+import 'package:thrive_shop/product/widgets/widgets.dart';
 import 'package:thrive_shop/widgets/csm_text_field.dart';
 
 class CategoryForm extends StatelessWidget {
@@ -15,16 +16,23 @@ class CategoryForm extends StatelessWidget {
       create: (_) => CategoryFormCubit(
         repository: context.read<ProductsRepository>(),
       ),
-      child: CategoryFormContent(),
+      child: const CategoryFormContent(),
     );
   }
 }
 
-class CategoryFormContent extends StatelessWidget {
-  CategoryFormContent({super.key});
+class CategoryFormContent extends StatefulWidget {
+  const CategoryFormContent({super.key});
 
+  @override
+  _CategoryFormContentState createState() => _CategoryFormContentState();
+}
+
+class _CategoryFormContentState extends State<CategoryFormContent> {
   final TextEditingController _categoryController = TextEditingController();
-  final TextEditingController _colorController = TextEditingController();
+  Color currentColor = AppColors.lightColorScheme.secondary;
+
+  void changeColor(Color color) => setState(() => currentColor = color);
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +75,12 @@ class CategoryFormContent extends StatelessWidget {
                   text: 'Category name',
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
-                CSMTextField(
-                  textEditingController: _colorController,
-                  text: 'Color',
-                ),
+                ColorPickerContainer(
+                  pickerColor: currentColor,
+                  onColorChanged: changeColor,
+                )
               ],
             ),
           ),
@@ -80,7 +88,7 @@ class CategoryFormContent extends StatelessWidget {
             onPressed: () => context.read<CategoryFormCubit>().addCategory(
                   category: CategoryModel(
                     category: _categoryController.text,
-                    color: 0xFFF3F3,
+                    color: currentColor.value,
                   ),
                 ),
             child: const Text(
