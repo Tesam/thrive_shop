@@ -5,6 +5,7 @@ import 'package:products_repository/products_repository.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
 import 'package:thrive_shop/product/cubit/category_form_cubit.dart';
 import 'package:thrive_shop/product/widgets/widgets.dart';
+import 'package:thrive_shop/widgets/csm_button.dart';
 import 'package:thrive_shop/widgets/csm_text_field.dart';
 
 class CategoryForm extends StatelessWidget {
@@ -84,17 +85,15 @@ class _CategoryFormContentState extends State<CategoryFormContent> {
               ],
             ),
           ),
-          ElevatedButton(
+          CSMButton(
             onPressed: () => context.read<CategoryFormCubit>().addCategory(
                   category: CategoryModel(
                     category: _categoryController.text,
                     color: currentColor.value,
                   ),
                 ),
-            child: const Text(
-              'Add Category',
-            ),
-          )
+            title: 'Add Category',
+          ),
         ],
       ),
     );

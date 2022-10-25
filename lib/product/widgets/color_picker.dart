@@ -37,7 +37,7 @@ class ColorPickerContainer extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
               color: _pickerColor,
             ),
-            height: 60,
+            height: 50,
           ),
           onTap: () {
             showDialog(
