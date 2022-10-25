@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
-import 'package:thrive_shop/shopping_list/widgets/delete_swipe_background.dart';
+import 'package:thrive_shop/widgets/delete_swipe_background.dart';
 
 class CategoryHeader extends StatelessWidget {
   const CategoryHeader({
