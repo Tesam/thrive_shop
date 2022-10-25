@@ -50,10 +50,15 @@ class _HomePageState extends State<HomePage> {
             ),
             ListTile(
               leading: Icon(
-                Icons.shopping_cart,
+                Icons.shopping_cart_outlined,
                 color: AppColors.lightColorScheme.onBackground,
               ),
-              title: const Text('Shopping List'),
+              title: const Text(
+                'Shopping List',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
               onTap: () {
                 setIndex(0);
                 Navigator.pop(context);
@@ -61,10 +66,15 @@ class _HomePageState extends State<HomePage> {
             ),
             ListTile(
               leading: Icon(
-                Icons.favorite,
+                Icons.favorite_border,
                 color: AppColors.lightColorScheme.onBackground,
               ),
-              title: const Text('Favorites'),
+              title: const Text(
+                'Favorites',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
               onTap: () {
                 setIndex(1);
                 Navigator.pop(context);
@@ -72,10 +82,15 @@ class _HomePageState extends State<HomePage> {
             ),
             ListTile(
               leading: Icon(
-                Icons.add_box,
+                Icons.add_box_outlined,
                 color: AppColors.lightColorScheme.onBackground,
               ),
-              title: const Text('Items'),
+              title: const Text(
+                'Items',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
               onTap: () {
                 setIndex(2);
                 Navigator.pop(context);
