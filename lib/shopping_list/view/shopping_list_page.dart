@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:products_repository/products_repository.dart';
+import 'package:thrive_shop/color_schemes.g.dart';
 import 'package:thrive_shop/shopping_list/cubit/shopping_list_cubit.dart';
 import 'package:thrive_shop/widgets/widgets.dart';
 
@@ -77,12 +78,30 @@ class ShoppingListView extends StatelessWidget {
                             imageUrl: item.imageUrl,
                             isFavorite: item.isFavorite,
                             product: item.product,
-                            onFavorite: () => context
-                                .read<ShoppingListCubit>()
-                                .setFavoriteState(
-                                  isFavorite: item.isFavorite,
-                                  productId: item.productId,
-                                ),
+                            onFavorite: () {
+                              final isSuccessful = context
+                                  .read<ShoppingListCubit>()
+                                  .setFavoriteState(
+                                    isFavorite: item.isFavorite,
+                                    productId: item.productId,
+                                  );
+
+                              if (isSuccessful) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor:
+                                        AppColors.lightColorScheme.secondary,
+                                    content: (item.isFavorite)
+                                        ? const Text(
+                                            'The product was removed from '
+                                                'Favorites successfully!')
+                                        : const Text(
+                                            'The product was add to '
+                                                'Favorites successfully!'),
+                                  ),
+                                );
+                              }
+                            },
                             onDelete: () => context
                                 .read<ShoppingListCubit>()
                                 .deleteProduct(productId: item.productId),
@@ -94,11 +113,30 @@ class ShoppingListView extends StatelessWidget {
                         imageUrl: item.imageUrl,
                         isFavorite: item.isFavorite,
                         product: item.product,
-                        onFavorite: () =>
-                            context.read<ShoppingListCubit>().setFavoriteState(
-                                  isFavorite: item.isFavorite,
-                                  productId: item.productId,
-                                ),
+                        onFavorite: () {
+                          final isSuccessful = context
+                              .read<ShoppingListCubit>()
+                              .setFavoriteState(
+                            isFavorite: item.isFavorite,
+                            productId: item.productId,
+                          );
+
+                          if (isSuccessful) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor:
+                                AppColors.lightColorScheme.secondary,
+                                content: (item.isFavorite)
+                                    ? const Text(
+                                    'The product was removed from '
+                                        'Favorites successfully!')
+                                    : const Text(
+                                    'The product was add to '
+                                        'Favorites successfully!'),
+                              ),
+                            );
+                          }
+                        },
                         onDelete: () => context
                             .read<ShoppingListCubit>()
                             .deleteProduct(productId: item.productId),
