@@ -14,8 +14,10 @@ class CategoryFormCubit extends Cubit<CategoryFormState> {
     try {
       await repository.createCategory(category: category);
       emit(const CategoryFormState.success());
+      emit(const CategoryFormState.initial());
     } on Exception {
       emit(const CategoryFormState.failure());
+      emit(const CategoryFormState.initial());
     }
   }
 }

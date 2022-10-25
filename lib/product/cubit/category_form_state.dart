@@ -9,7 +9,8 @@ class CategoryFormState extends Equatable {
     this.color = 0,
   });
 
-  const CategoryFormState.initial() : this._();
+  const CategoryFormState.initial()
+      : this._(status: CategoryFormStatus.initial);
 
   const CategoryFormState.success()
       : this._(status: CategoryFormStatus.success);
