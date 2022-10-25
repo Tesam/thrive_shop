@@ -78,8 +78,7 @@ class FavoritesView extends StatelessWidget {
                                     bottom: 10,
                                   ),
                                   child: CategoryHeader(
-                                    color: item.category.color,
-                                    category: category,
+                                    category: item.category,
                                   ),
                                 ),
                                 Dismissible(

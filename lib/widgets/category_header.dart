@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:products_api/products_api.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
 
 class CategoryHeader extends StatelessWidget {
   const CategoryHeader({
     super.key,
-    required int color,
-    required String category,
-  })  : _color = color,
-        _category = category;
+    required Category category,
+  }) : _category = category;
 
-  final int _color;
-  final String _category;
+  final Category _category;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +16,7 @@ class CategoryHeader extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: Color(_color),
+            color: Color(_category.color),
             borderRadius: BorderRadius.circular(8),
           ),
           width: 20,
@@ -29,7 +27,7 @@ class CategoryHeader extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-            _category,
+            _category.category,
             style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
           ),
         ),

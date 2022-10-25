@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:products_repository/products_repository.dart';
 import 'package:thrive_shop/shopping_list/cubit/shopping_list_cubit.dart';
-import 'package:thrive_shop/shopping_list/view/product_list_view.dart';
+import 'package:thrive_shop/shopping_list/view/product_list_content.dart';
 import 'package:thrive_shop/widgets/widgets.dart';
 
 class ShoppingListPage extends StatelessWidget {
@@ -45,7 +45,7 @@ class ShoppingListView extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              ProductListView(items: state.items),
+              ProductListContent(items: state.items),
             ],
           ),
         );
@@ -54,4 +54,3 @@ class ShoppingListView extends StatelessWidget {
     }
   }
 }
-
