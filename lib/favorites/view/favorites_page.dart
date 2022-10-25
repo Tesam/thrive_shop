@@ -80,7 +80,6 @@ class FavoritesView extends StatelessWidget {
                                   child: CategoryHeader(
                                     color: item.category.color,
                                     category: category,
-                                    onDelete: (){},
                                   ),
                                 ),
                                 ProductItem(

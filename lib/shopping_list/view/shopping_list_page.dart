@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:products_repository/products_repository.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
 import 'package:thrive_shop/shopping_list/cubit/shopping_list_cubit.dart';
+import 'package:thrive_shop/widgets/delete_swipe_background.dart';
 import 'package:thrive_shop/widgets/widgets.dart';
 
 class ShoppingListPage extends StatelessWidget {
@@ -79,15 +80,65 @@ class ShoppingListView extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      top: 20, bottom: 10,),
-                                  child: CategoryHeader(
-                                    color: item.category.color,
-                                    category: category,
-                                    onDelete: () => context
-                                        .read<ShoppingListCubit>()
-                                        .deleteCategory(
-                                          categoryId: item.category.categoryId,
-                                        ),
+                                    top: 20,
+                                    bottom: 10,
+                                  ),
+                                  child: Dismissible(
+                                    key: ValueKey<String>(
+                                        item.category.categoryId,),
+                                    background: const DeleteSwipeBackground(),
+                                    confirmDismiss: (direction) {
+                                      return showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: Text(
+                                              'Delete '
+                                                  '${item.category.category}',
+                                            ),
+                                            content: Text(
+                                                'Are you sure you want to '
+                                                'delete '
+                                                    '${item.category.category}'
+                                                '?'),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                child: const Text(
+                                                  'Cancel',
+                                                  style: TextStyle(
+                                                      color: Colors.black,),
+                                                ),
+                                                onPressed: () =>
+                                                    Navigator.of(context).pop(),
+                                              ),
+                                              TextButton(
+                                                child: Text(
+                                                  'DELETE',
+                                                  style: TextStyle(
+                                                      color: AppColors
+                                                          .lightColorScheme
+                                                          .error,),
+                                                ),
+                                                onPressed: () {
+                                                  context
+                                                      .read<ShoppingListCubit>()
+                                                      .deleteCategory(
+                                                        categoryId: item
+                                                            .category
+                                                            .categoryId,
+                                                      );
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: CategoryHeader(
+                                      color: item.category.color,
+                                      category: category,
+                                    ),
                                   ),
                                 ),
                                 ProductItem(
@@ -111,8 +162,8 @@ class ShoppingListView extends StatelessWidget {
                                           content: (item.isFavorite)
                                               ? const Text(
                                                   'The product was removed '
-                                                      'from Favorites '
-                                                      'successfully!')
+                                                  'from Favorites '
+                                                  'successfully!')
                                               : const Text(
                                                   'The product was add to '
                                                   'Favorites successfully!'),
