@@ -7,11 +7,14 @@ class ProductItem extends StatelessWidget {
     super.key,
     required Product product,
     required VoidCallback onFavorite,
+    required bool showFavoriteDate,
   })  : _product = product,
-        _onFavorite = onFavorite;
+        _onFavorite = onFavorite,
+        _showFavoriteDate = showFavoriteDate;
 
   final Product _product;
   final VoidCallback _onFavorite;
+  final bool _showFavoriteDate;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,9 @@ class ProductItem extends StatelessWidget {
         ),
       ),
       title: Text(_product.product),
+      subtitle: (_showFavoriteDate && _product.favoriteDate.isNotEmpty)
+          ? Text(_product.favoriteDate)
+          : null,
       trailing: (_product.isFavorite)
           ? IconButton(
               onPressed: _onFavorite,

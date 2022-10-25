@@ -82,6 +82,7 @@ class FavoriteProductsListItem extends StatelessWidget {
       child: ProductItem(
         product: _product,
         onFavorite: () => _onFavorite(context),
+        showFavoriteDate: true,
       ),
     );
   }

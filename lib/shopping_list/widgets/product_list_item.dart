@@ -124,6 +124,7 @@ class ProductListItem extends StatelessWidget {
       child: ProductItem(
         product: _product,
         onFavorite: () => _onFavorite(context),
+        showFavoriteDate: false,
       ),
     );
   }
