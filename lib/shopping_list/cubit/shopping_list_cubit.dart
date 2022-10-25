@@ -46,12 +46,19 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
 
   void setFavoriteState({required bool isFavorite, required String productId}) {
     try {
-
       if(isFavorite){
         repository.removeFromFavorite(productId: productId);
       }else{
         repository.addToFavorite(productId: productId);
       }
+    } on Exception {
+      emit(const ShoppingListState.failure());
+    }
+  }
+
+  void deleteProduct({required String productId}) {
+    try {
+      repository.deleteProduct(productId: productId);
     } on Exception {
       emit(const ShoppingListState.failure());
     }

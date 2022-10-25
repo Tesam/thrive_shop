@@ -83,7 +83,9 @@ class ShoppingListView extends StatelessWidget {
                                   isFavorite: item.isFavorite,
                                   productId: item.productId,
                                 ),
-                            onDelete: () => {},
+                            onDelete: () => context
+                                .read<ShoppingListCubit>()
+                                .deleteProduct(productId: item.productId),
                           ),
                         ],
                       );
@@ -92,13 +94,14 @@ class ShoppingListView extends StatelessWidget {
                         imageUrl: item.imageUrl,
                         isFavorite: item.isFavorite,
                         product: item.product,
-                        onFavorite: () => context
+                        onFavorite: () =>
+                            context.read<ShoppingListCubit>().setFavoriteState(
+                                  isFavorite: item.isFavorite,
+                                  productId: item.productId,
+                                ),
+                        onDelete: () => context
                             .read<ShoppingListCubit>()
-                            .setFavoriteState(
-                          isFavorite: item.isFavorite,
-                          productId: item.productId,
-                        ),
-                        onDelete: () => {},
+                            .deleteProduct(productId: item.productId),
                       );
                     }
                   },
