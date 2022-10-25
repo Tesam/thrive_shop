@@ -44,6 +44,19 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
     }
   }
 
+  void setFavoriteState({required bool isFavorite, required String productId}) {
+    try {
+
+      if(isFavorite){
+        repository.removeFromFavorite(productId: productId);
+      }else{
+        repository.addToFavorite(productId: productId);
+      }
+    } on Exception {
+      emit(const ShoppingListState.failure());
+    }
+  }
+
 /* Future<void> deleteItem(String id) async {
     final deleteInProgress = state.items.map((item) {
       return item.id == id ? item.copyWith(isDeleting: true) : item;

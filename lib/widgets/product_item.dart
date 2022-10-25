@@ -7,13 +7,16 @@ class ProductItem extends StatelessWidget {
     required String imageUrl,
     required bool isFavorite,
     required String product,
+    required VoidCallback onFavorite,
   })  : _imageUrl = imageUrl,
         _isFavorite = isFavorite,
-        _product = product;
+        _product = product,
+        _onFavorite = onFavorite;
 
   final String _imageUrl;
   final bool _isFavorite;
   final String _product;
+  final VoidCallback _onFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +35,14 @@ class ProductItem extends StatelessWidget {
       ),
       title: Text(_product),
       trailing: _isFavorite
-          ? Icon(
-              Icons.favorite,
-              color: AppColors.lightColorScheme.primary,
-            )
-          : Icon(
-              Icons.favorite_border,
-              color: AppColors.lightColorScheme.primary,
-            ),
+          ? IconButton(onPressed: _onFavorite, icon: Icon(
+        Icons.favorite,
+        color: AppColors.lightColorScheme.primary,
+      ),)
+          : IconButton(onPressed: _onFavorite, icon: Icon(
+        Icons.favorite_border,
+        color: AppColors.lightColorScheme.primary,
+      ),),
     );
   }
 }

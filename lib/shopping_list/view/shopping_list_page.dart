@@ -77,6 +77,12 @@ class ShoppingListView extends StatelessWidget {
                             imageUrl: item.imageUrl,
                             isFavorite: item.isFavorite,
                             product: item.product,
+                            onFavorite: () => context
+                                .read<ShoppingListCubit>()
+                                .setFavoriteState(
+                                  isFavorite: item.isFavorite,
+                                  productId: item.productId,
+                                ),
                           ),
                         ],
                       );
@@ -85,6 +91,12 @@ class ShoppingListView extends StatelessWidget {
                         imageUrl: item.imageUrl,
                         isFavorite: item.isFavorite,
                         product: item.product,
+                        onFavorite: () => context
+                            .read<ShoppingListCubit>()
+                            .setFavoriteState(
+                          isFavorite: item.isFavorite,
+                          productId: item.productId,
+                        ),
                       );
                     }
                   },
