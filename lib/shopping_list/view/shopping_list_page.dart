@@ -83,6 +83,7 @@ class ShoppingListView extends StatelessWidget {
                                   isFavorite: item.isFavorite,
                                   productId: item.productId,
                                 ),
+                            onDelete: () => {},
                           ),
                         ],
                       );
@@ -97,6 +98,7 @@ class ShoppingListView extends StatelessWidget {
                           isFavorite: item.isFavorite,
                           productId: item.productId,
                         ),
+                        onDelete: () => {},
                       );
                     }
                   },
