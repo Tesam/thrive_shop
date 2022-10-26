@@ -226,4 +226,29 @@ class FirebaseProductsApi implements ProductsApi {
       rethrow;
     }
   }
+
+  @override
+  Future<List<Category>> getCategories() async {
+    try {
+      var ref = _firebaseFirestore
+          .collection('categories')
+          .withConverter<CategoryModel>(
+        fromFirestore: (snapshot, options) {
+          print('Category LIST ${snapshot.data()}');
+          return CategoryModel.fromJson(snapshot.data()!);
+        },
+        toFirestore: (value, options) {
+          return value.toJson();
+        },
+      );
+
+      return (await ref.get())
+        .docs
+        .map((document) => document.data())
+        .toList();
+
+    } catch (error) {
+      rethrow;
+    }
+  }
 }
