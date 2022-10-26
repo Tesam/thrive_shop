@@ -120,22 +120,35 @@ class ProductFormContentState extends State<ProductFormContent> {
                       const SizedBox(
                         height: 15,
                       ),
-                      DropdownButton<Category>(
-                        value: state.category.value,
-                        icon: const Icon(Icons.expand_more),
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.deepPurple),
-                        onChanged: (Category? value) => context
-                            .read<ProductFormCubit>()
-                            .onCategoryChanged(value!),
-                        items: state.items
-                            .map<DropdownMenuItem<Category>>((Category value) {
-                          return DropdownMenuItem<Category>(
-                            value: value,
-                            child: Text(value.category),
-                          );
-                        }).toList(),
-                      )
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: AppColors.lightColorScheme.primaryContainer,
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<Category>(
+                            value: state.category.value,
+                            icon: const Icon(Icons.expand_more),
+                            elevation: 16,
+                            isExpanded: true,
+                            menuMaxHeight: 300,
+                            style: TextStyle(
+                                color: AppColors
+                                    .lightColorScheme.onPrimaryContainer),
+                            onChanged: (Category? value) => context
+                                .read<ProductFormCubit>()
+                                .onCategoryChanged(value!),
+                            items: state.items.map<DropdownMenuItem<Category>>(
+                                (Category value) {
+                              return DropdownMenuItem<Category>(
+                                value: value,
+                                child: Text(value.category),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
