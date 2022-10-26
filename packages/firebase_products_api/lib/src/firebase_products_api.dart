@@ -173,6 +173,7 @@ class FirebaseProductsApi implements ProductsApi {
       return _firebaseFirestore
           .collection('products')
           .where('is_favorite', isEqualTo: true)
+          .orderBy('category.category',)
           .withConverter<ProductModel>(
             fromFirestore: (snapshot, options) {
               return ProductModel.fromJson(snapshot.data()!);
@@ -197,7 +198,6 @@ class FirebaseProductsApi implements ProductsApi {
           .collection('products')
           .withConverter<ProductModel>(
             fromFirestore: (snapshot, options) {
-              print('Product LIST ${snapshot.data()}');
               return ProductModel.fromJson(snapshot.data()!);
             },
             toFirestore: (value, options) {
