@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_products_api/firebase_products_api.dart';
 import 'package:formz/formz.dart';
 import 'package:products_repository/products_repository.dart';
 import 'package:thrive_shop/product/models/models.dart';
@@ -15,7 +16,8 @@ class ProductFormCubit extends Cubit<ProductFormState> {
   Future<void> getCategories() async {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
-      final categories = await repository.getCategories();
+      final categories =
+          await repository.getCategories() as List<CategoryModel>;
       final category = CategoryModelInput.dirty(categories.first);
       emit(
         state.copyWith(
@@ -23,8 +25,7 @@ class ProductFormCubit extends Cubit<ProductFormState> {
           category: category.valid
               ? category
               : CategoryModelInput.pure(categories.first),
-          status:
-              Formz.validate([state.product, state.imageUrl]),
+          status: Formz.validate([state.product, state.imageUrl]),
         ),
       );
     } on Exception {
@@ -42,7 +43,7 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     );
   }
 
-  void onCategoryChanged(Category value) {
+  void onCategoryChanged(CategoryModel value) {
     final category = CategoryModelInput.dirty(value);
     emit(
       state.copyWith(
@@ -89,8 +90,9 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     if (state.status.isValidated) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
+        print('ENTRE EN EL TRY');
         await repository.createProduct(
-          product: Product(
+          product: ProductModel(
             product: state.product.value,
             category: state.category.value,
             imageUrl: state.imageUrl.value,

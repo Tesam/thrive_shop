@@ -1,3 +1,4 @@
+import 'package:firebase_products_api/firebase_products_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -127,7 +128,7 @@ class ProductFormContentState extends State<ProductFormContent> {
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: DropdownButtonHideUnderline(
-                          child: DropdownButton<Category>(
+                          child: DropdownButton<CategoryModel>(
                             value: state.category.value,
                             icon: const Icon(Icons.expand_more),
                             elevation: 16,
@@ -136,12 +137,13 @@ class ProductFormContentState extends State<ProductFormContent> {
                             style: TextStyle(
                                 color: AppColors
                                     .lightColorScheme.onPrimaryContainer),
-                            onChanged: (Category? value) => context
+                            onChanged: (CategoryModel? value) => context
                                 .read<ProductFormCubit>()
                                 .onCategoryChanged(value!),
-                            items: state.items.map<DropdownMenuItem<Category>>(
-                                (Category value) {
-                              return DropdownMenuItem<Category>(
+                            items: state.items
+                                .map<DropdownMenuItem<CategoryModel>>(
+                                    (CategoryModel value) {
+                              return DropdownMenuItem<CategoryModel>(
                                 value: value,
                                 child: Text(value.category),
                               );

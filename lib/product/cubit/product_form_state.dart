@@ -5,7 +5,7 @@ class ProductFormState extends Equatable {
     this.product = const ProductInput.pure(),
     this.category = const CategoryModelInput.pure(),
     this.imageUrl = const ImageUrlInput.pure(),
-    this.items = const <Category>[],
+    this.items = const <CategoryModel>[],
     this.status = FormzStatus.pure,
   });
 
@@ -13,13 +13,13 @@ class ProductFormState extends Equatable {
   final CategoryModelInput category;
   final ImageUrlInput imageUrl;
   final FormzStatus status;
-  final List<Category> items;
+  final List<CategoryModel> items;
 
   ProductFormState copyWith({
     ProductInput? product,
     CategoryModelInput? category,
     ImageUrlInput? imageUrl,
-    List<Category>? items,
+    List<CategoryModel>? items,
     FormzStatus? status,
   }) {
     return ProductFormState(
