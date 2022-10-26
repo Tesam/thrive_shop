@@ -1,27 +1,28 @@
 part of 'category_form_cubit.dart';
 
-enum CategoryFormStatus { initial, success, failure }
-
 class CategoryFormState extends Equatable {
-  const CategoryFormState._({
-    this.status = CategoryFormStatus.initial,
-    this.category = '',
-    this.color = 0,
+  const CategoryFormState({
+    this.category = const CategoryInput.pure(),
+    this.color = const ColorInput.pure(),
+    this.status = FormzStatus.pure,
   });
 
-  const CategoryFormState.initial()
-      : this._(status: CategoryFormStatus.initial);
+  final CategoryInput category;
+  final ColorInput color;
+  final FormzStatus status;
 
-  const CategoryFormState.success()
-      : this._(status: CategoryFormStatus.success);
-
-  const CategoryFormState.failure()
-      : this._(status: CategoryFormStatus.failure);
-
-  final CategoryFormStatus status;
-  final String category;
-  final int color;
+  CategoryFormState copyWith({
+    CategoryInput? category,
+    ColorInput? color,
+    FormzStatus? status,
+  }) {
+    return CategoryFormState(
+      category: category ?? this.category,
+      color: color ?? this.color,
+      status: status ?? this.status,
+    );
+  }
 
   @override
-  List<Object> get props => [status, category, color];
+  List<Object> get props => [category, color, status];
 }

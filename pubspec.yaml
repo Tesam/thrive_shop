@@ -20,6 +20,7 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   flutter_localizations:
     sdk: flutter
+  formz: ^0.4.1
   intl: ^0.17.0
   products_api:
     path: packages/products_api

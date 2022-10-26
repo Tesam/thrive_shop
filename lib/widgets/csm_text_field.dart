@@ -4,19 +4,25 @@ import 'package:thrive_shop/color_schemes.g.dart';
 class CSMTextField extends StatelessWidget {
   const CSMTextField({
     super.key,
-    required TextEditingController textEditingController,
+    TextEditingController? textEditingController,
     required String text,
     bool isSearchTextField = false,
     ValueSetter<String>? onChanged,
+    FocusNode? focusNode,
+    String? errorText,
   })  : _textEditingController = textEditingController,
         _text = text,
         _isSearchTextField = isSearchTextField,
-        _onChanged = onChanged;
+        _onChanged = onChanged,
+        _focusNode = focusNode,
+        _errorText = errorText;
 
-  final TextEditingController _textEditingController;
+  final TextEditingController? _textEditingController;
   final String _text;
   final bool _isSearchTextField;
   final ValueSetter<String>? _onChanged;
+  final FocusNode? _focusNode;
+  final String? _errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +31,7 @@ class CSMTextField extends StatelessWidget {
       style: TextStyle(
         color: AppColors.lightColorScheme.onPrimaryContainer,
       ),
+      focusNode: _focusNode,
       onChanged: _onChanged,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(
@@ -43,6 +50,7 @@ class CSMTextField extends StatelessWidget {
         focusedBorder: borderStyle(),
         disabledBorder: borderStyle(),
         border: borderStyle(),
+        errorText: _errorText,
       ),
     );
   }

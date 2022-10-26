@@ -1,12 +1,12 @@
-import 'package:firebase_products_api/firebase_products_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:products_repository/products_repository.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
 import 'package:thrive_shop/product/cubit/category_form_cubit.dart';
+import 'package:thrive_shop/product/models/category_input.dart';
 import 'package:thrive_shop/product/widgets/widgets.dart';
-import 'package:thrive_shop/widgets/csm_button.dart';
-import 'package:thrive_shop/widgets/csm_text_field.dart';
+import 'package:thrive_shop/widgets/widgets.dart';
 
 class CategoryForm extends StatelessWidget {
   const CategoryForm({super.key});
@@ -26,20 +26,55 @@ class CategoryFormContent extends StatefulWidget {
   const CategoryFormContent({super.key});
 
   @override
-  _CategoryFormContentState createState() => _CategoryFormContentState();
+  CategoryFormContentState createState() => CategoryFormContentState();
 }
 
-class _CategoryFormContentState extends State<CategoryFormContent> {
-  final TextEditingController _categoryController = TextEditingController();
-  Color currentColor = AppColors.lightColorScheme.secondary;
+class CategoryFormContentState extends State<CategoryFormContent> {
+  final _categoryFocusNode = FocusNode();
 
-  void changeColor(Color color) => setState(() => currentColor = color);
+  @override
+  void initState() {
+    super.initState();
+    final cubit = context.read<CategoryFormCubit>();
+    _categoryFocusNode.addListener(() {
+      if (!_categoryFocusNode.hasFocus) {
+        cubit.onCategoryUnfocused();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _categoryFocusNode.dispose();
+    super.dispose();
+  }
+
+  void changeColor(Color color) {
+    context.read<CategoryFormCubit>().onColorChanged(color.value);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<CategoryFormCubit>().state;
+
     return BlocListener<CategoryFormCubit, CategoryFormState>(
       listener: (context, state) {
-        if (state.status == CategoryFormStatus.success) {
+        if (state.status == FormzStatus.invalid) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                content: Text(
+                  'Please, fill the empty fields',
+                  style: TextStyle(
+                      color: AppColors.lightColorScheme.onPrimaryContainer,),
+                ),
+                backgroundColor: AppColors.lightColorScheme.primaryContainer,
+              ),
+            );
+        }
+
+        if (state.status == FormzStatus.submissionSuccess) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -52,7 +87,7 @@ class _CategoryFormContentState extends State<CategoryFormContent> {
             );
         }
 
-        if (state.status == CategoryFormStatus.failure) {
+        if (state.status == FormzStatus.submissionFailure) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -72,26 +107,27 @@ class _CategoryFormContentState extends State<CategoryFormContent> {
               shrinkWrap: true,
               children: [
                 CSMTextField(
-                  textEditingController: _categoryController,
                   text: 'Category name',
+                  focusNode: _categoryFocusNode,
+                  onChanged:
+                      context.read<CategoryFormCubit>().onCategoryChanged,
+                  errorText:
+                      (state.category.error == CategoryValidationError.invalid)
+                          ? "The category can't be empty"
+                          : null,
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 ColorPickerContainer(
-                  pickerColor: currentColor,
+                  pickerColor: Color(state.color.value),
                   onColorChanged: changeColor,
                 )
               ],
             ),
           ),
           CSMButton(
-            onPressed: () => context.read<CategoryFormCubit>().addCategory(
-                  category: CategoryModel(
-                    category: _categoryController.text,
-                    color: currentColor.value,
-                  ),
-                ),
+            onPressed: () => context.read<CategoryFormCubit>().onSubmit(),
             title: 'Add Category',
           ),
         ],
