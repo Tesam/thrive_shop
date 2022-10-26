@@ -20,6 +20,9 @@ class ProductsRepository {
   /// Provides a [Stream] of all products.
   Stream<List<Product>> getProducts() => _productsApi.getProducts();
 
+  /// Provides a [Future] of all products.
+  Future<List<Category>> getCategories() => _productsApi.getCategories();
+
   /// Create a [product].
   ///
   /// If a [product] with the same productId already exists, the product will
