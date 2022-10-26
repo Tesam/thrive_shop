@@ -204,6 +204,7 @@ class FirebaseProductsApi implements ProductsApi {
               return value.toJson();
             },
           )
+          .orderBy('category.category',)
           .snapshots()
           .map(
             (query) => query.docs.map((snapshot) => snapshot.data()).toList(),
