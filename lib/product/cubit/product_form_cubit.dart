@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_products_api/firebase_products_api.dart';
 import 'package:formz/formz.dart';
 import 'package:products_repository/products_repository.dart';
 import 'package:thrive_shop/product/models/models.dart';
@@ -17,12 +16,15 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
       final categories = await repository.getCategories();
-      print('CATEGORIES FROM UI= $categories');
+      final category = CategoryModelInput.dirty(categories.first);
       emit(
         state.copyWith(
           items: categories,
+          category: category.valid
+              ? category
+              : CategoryModelInput.pure(categories.first),
           status:
-          Formz.validate([state.product, state.category, state.imageUrl]),
+              Formz.validate([state.product, state.imageUrl]),
         ),
       );
     } on Exception {
@@ -40,7 +42,7 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     );
   }
 
-  void onCategoryChanged(CategoryModel value) {
+  void onCategoryChanged(Category value) {
     final category = CategoryModelInput.dirty(value);
     emit(
       state.copyWith(
