@@ -231,7 +231,7 @@ class FirebaseProductsApi implements ProductsApi {
   @override
   Future<List<Category>> getCategories() async {
     try {
-      var ref = _firebaseFirestore
+      final ref = _firebaseFirestore
           .collection('categories')
           .withConverter<CategoryModel>(
         fromFirestore: (snapshot, options) {
@@ -241,7 +241,7 @@ class FirebaseProductsApi implements ProductsApi {
         toFirestore: (value, options) {
           return value.toJson();
         },
-      );
+      ).orderBy('category',);
 
       return (await ref.get())
         .docs
