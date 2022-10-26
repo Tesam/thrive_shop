@@ -18,6 +18,9 @@ abstract class ProductsApi {
   /// Provides a [Stream] of all products.
   Stream<List<Product>> getProducts();
 
+  /// Provides a [Stream] of all products.
+  Future<List<Category>> getCategories();
+
   /// Create a [product].
   ///
   /// If a [product] with the same productId already exists, the product will
