@@ -8,6 +8,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_products_api/firebase_products_api.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:thrive_shop/bootstrap.dart';
 import 'package:thrive_shop/firebase_options.dart';
@@ -18,8 +19,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final productsApi =
-      FirebaseProductsApi(fireStore: FirebaseFirestore.instance);
+  final productsApi = FirebaseProductsApi(
+    fireStore: FirebaseFirestore.instance,
+    firebaseStorage: FirebaseStorage.instance,
+  );
 
   bootstrap(productsApi: productsApi);
 }

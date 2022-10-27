@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:firebase_products_api/firebase_products_api.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:products_repository/products_repository.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
 import 'package:thrive_shop/product/cubit/product_form_cubit.dart';
@@ -149,6 +154,67 @@ class ProductFormContentState extends State<ProductFormContent> {
                               );
                             }).toList(),
                           ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        color: Colors.white,
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                                margin: EdgeInsets.all(15),
+                                padding: EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(15),
+                                  ),
+                                  border: Border.all(color: Colors.white),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      offset: Offset(2, 2),
+                                      spreadRadius: 2,
+                                      blurRadius: 1,
+                                    ),
+                                  ],
+                                ),
+                                child: (state.imageUrl.value.isNotEmpty)
+                                    ? Image.network(
+                                        state.imageUrl.value,
+                                        height: 100,
+                                      )
+                                    : Image.network(
+                                        'https://i.imgur.com/sUFH1Aq.png')),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                                onPressed: () async {
+                                  final _imagePicker = ImagePicker();
+                                  XFile? image;
+
+                                  await Permission.photos.request();
+
+                                  var permissionStatus =
+                                      await Permission.photos.status;
+
+                                  if (permissionStatus.isGranted) {
+                                    image = await _imagePicker.pickImage(
+                                        source: ImageSource.gallery);
+
+                                    if (image != null) {
+                                      var file = File(image.path);
+                                      context
+                                          .read<ProductFormCubit>()
+                                          .onImageUrlChanged(file);
+                                    }
+                                  }
+                                },
+                                child: Text(
+                                  'Upload Image',
+                                ))
+                          ],
                         ),
                       ),
                     ],

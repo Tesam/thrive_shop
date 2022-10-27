@@ -5,6 +5,8 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'dart:io';
+
 import 'package:products_api/products_api.dart';
 
 /// {@template products_repository}
@@ -68,4 +70,8 @@ class ProductsRepository {
   /// [ProductNotFoundException] error is thrown.
   Future<bool> removeFromFavorite({required String productId}) =>
       _productsApi.removeFromFavorite(productId: productId);
+
+  ///Upload a product image on server
+  Future<String> addProductImage({required File image}) =>
+      _productsApi.addProductImage(image: image);
 }

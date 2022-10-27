@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_products_api/firebase_products_api.dart';
@@ -53,14 +55,23 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     );
   }
 
-  void onImageUrlChanged(String value) {
-    final imageUrl = ImageUrlInput.dirty(value);
-    emit(
-      state.copyWith(
-        imageUrl: imageUrl.valid ? imageUrl : ImageUrlInput.pure(value),
-        status: Formz.validate([imageUrl, state.product, state.category]),
-      ),
-    );
+  Future<void> onImageUrlChanged(File image) async {
+    try{
+      emit(state.copyWith(status: FormzStatus.submissionInProgress));
+
+      final url = await repository.addProductImage(image: image);
+      final imageUrl = ImageUrlInput.dirty(url);
+      emit(
+        state.copyWith(
+          imageUrl: imageUrl.valid ? imageUrl : ImageUrlInput.pure(url),
+          status: Formz.validate([imageUrl, state.product, state.category]),
+        ),
+      );
+
+      emit(state.copyWith(status: FormzStatus.submissionSuccess));
+    } on Exception {
+      emit(state.copyWith(status: FormzStatus.submissionFailure));
+    }
   }
 
   void onProductUnfocused() {
@@ -90,7 +101,6 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     if (state.status.isValidated) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
-        print('ENTRE EN EL TRY');
         await repository.createProduct(
           product: ProductModel(
             product: state.product.value,

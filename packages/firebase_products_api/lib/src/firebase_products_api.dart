@@ -19,7 +19,7 @@ class FirebaseProductsApi implements ProductsApi {
   /// {@macro firebase_products_api}
   const FirebaseProductsApi(
       {required FirebaseFirestore fireStore,
-      required FirebaseStorage firebaseStorage})
+      required FirebaseStorage firebaseStorage,})
       : _firebaseFirestore = fireStore,
         _firebaseStorage = firebaseStorage;
 
@@ -252,7 +252,6 @@ class FirebaseProductsApi implements ProductsApi {
           .collection('categories')
           .withConverter<CategoryModel>(
         fromFirestore: (snapshot, options) {
-          print('Category LIST ${snapshot.data()}');
           return CategoryModel.fromJson(snapshot.data()!);
         },
         toFirestore: (value, options) {
