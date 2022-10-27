@@ -77,7 +77,7 @@ class ProductFormContentState extends State<ProductFormContent> {
             ..showSnackBar(
               SnackBar(
                 content: const Text(
-                  'Product added successfully',
+                  'The action was successful',
                 ),
                 backgroundColor: AppColors.lightColorScheme.secondary,
               ),
@@ -90,7 +90,7 @@ class ProductFormContentState extends State<ProductFormContent> {
             ..showSnackBar(
               SnackBar(
                 content: const Text(
-                  'Oops the product cannot be added',
+                  'Oops was wrong',
                 ),
                 backgroundColor: AppColors.lightColorScheme.error,
               ),
@@ -121,35 +121,12 @@ class ProductFormContentState extends State<ProductFormContent> {
                       const SizedBox(
                         height: 15,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: AppColors.lightColorScheme.primaryContainer,
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<CategoryModel>(
-                            value: state.category.value,
-                            icon: const Icon(Icons.expand_more),
-                            elevation: 16,
-                            isExpanded: true,
-                            menuMaxHeight: 300,
-                            style: TextStyle(
-                                color: AppColors
-                                    .lightColorScheme.onPrimaryContainer,),
-                            onChanged: (CategoryModel? value) => context
-                                .read<ProductFormCubit>()
-                                .onCategoryChanged(value!),
-                            items: state.items
-                                .map<DropdownMenuItem<CategoryModel>>(
-                                    (CategoryModel value) {
-                              return DropdownMenuItem<CategoryModel>(
-                                value: value,
-                                child: Text(value.category),
-                              );
-                            }).toList(),
-                          ),
-                        ),
+                      CSMDropdown<CategoryModel>(
+                        element: state.category.value,
+                        onChanged: (CategoryModel? value) => context
+                            .read<ProductFormCubit>()
+                            .onCategoryChanged(value!),
+                        items: state.items,
                       ),
                       const SizedBox(
                         height: 20,

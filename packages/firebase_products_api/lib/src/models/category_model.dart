@@ -26,4 +26,9 @@ class CategoryModel extends Category {
 
   /// Converts this [CategoryModel] into a [Map].
   Map<String, dynamic> toJson() => _$CategoryModelToJson(this);
+
+  @override
+  String toString() {
+    return category;
+  }
 }
