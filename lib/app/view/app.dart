@@ -37,10 +37,6 @@ class App extends StatelessWidget {
         value: productsRepository,
         child: const HomePage(),
       ),
-      /*  initialRoute: '/',
-      routes: {
-        '/': (_) => const HomePage(),
-      },*/
     );
   }
 }
