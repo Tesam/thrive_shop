@@ -32,7 +32,7 @@ class CSMDropdown<T> extends StatelessWidget {
           style: TextStyle(
             color: AppColors.lightColorScheme.onPrimaryContainer,
           ),
-          onChanged: (T? value) => _onChanged,
+          onChanged: _onChanged,
           items: _items
               .map<DropdownMenuItem<T>>((T value) {
             return DropdownMenuItem<T>(

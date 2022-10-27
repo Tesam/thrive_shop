@@ -123,9 +123,11 @@ class ProductFormContentState extends State<ProductFormContent> {
                       ),
                       CSMDropdown<CategoryModel>(
                         element: state.category.value,
-                        onChanged: (CategoryModel? value) => context
-                            .read<ProductFormCubit>()
-                            .onCategoryChanged(value!),
+                        onChanged: (CategoryModel? value) {
+                          context
+                              .read<ProductFormCubit>()
+                              .onCategoryChanged(value!);
+                        },
                         items: state.items,
                       ),
                       const SizedBox(
