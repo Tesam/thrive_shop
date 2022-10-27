@@ -5,8 +5,11 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_products_api/firebase_products_api.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:products_api/products_api.dart';
 
 /// {@template firebase_products_api}
@@ -14,10 +17,14 @@ import 'package:products_api/products_api.dart';
 /// {@endtemplate}
 class FirebaseProductsApi implements ProductsApi {
   /// {@macro firebase_products_api}
-  const FirebaseProductsApi({required FirebaseFirestore fireStore})
-      : _firebaseFirestore = fireStore;
+  const FirebaseProductsApi(
+      {required FirebaseFirestore fireStore,
+      required FirebaseStorage firebaseStorage})
+      : _firebaseFirestore = fireStore,
+        _firebaseStorage = firebaseStorage;
 
   final FirebaseFirestore _firebaseFirestore;
+  final FirebaseStorage _firebaseStorage;
 
   @override
   Future<bool> addToFavorite({required String productId}) async {
@@ -53,7 +60,10 @@ class FirebaseProductsApi implements ProductsApi {
 
     batch
       ..set(categoryRef, category as CategoryModel)
-      ..update(categoryRef, {'category_id': categoryRef.id},)
+      ..update(
+        categoryRef,
+        {'category_id': categoryRef.id},
+      )
       ..set(
         categoryIdentifierRef,
         {'category': categoryRef.id},
@@ -88,7 +98,10 @@ class FirebaseProductsApi implements ProductsApi {
 
     batch
       ..set(productRef, product as ProductModel)
-      ..update(productRef, {'product_id': productRef.id},)
+      ..update(
+        productRef,
+        {'product_id': productRef.id},
+      )
       ..set(
         productIdentifierRef,
         {'product': productRef.id},
@@ -173,7 +186,9 @@ class FirebaseProductsApi implements ProductsApi {
       return _firebaseFirestore
           .collection('products')
           .where('is_favorite', isEqualTo: true)
-          .orderBy('category.category',)
+          .orderBy(
+            'category.category',
+          )
           .withConverter<ProductModel>(
             fromFirestore: (snapshot, options) {
               return ProductModel.fromJson(snapshot.data()!);
@@ -204,7 +219,9 @@ class FirebaseProductsApi implements ProductsApi {
               return value.toJson();
             },
           )
-          .orderBy('category.category',)
+          .orderBy(
+            'category.category',
+          )
           .snapshots()
           .map(
             (query) => query.docs.map((snapshot) => snapshot.data()).toList(),
@@ -241,15 +258,21 @@ class FirebaseProductsApi implements ProductsApi {
         toFirestore: (value, options) {
           return value.toJson();
         },
-      ).orderBy('category',);
+      ).orderBy(
+        'category',
+      );
 
-      return (await ref.get())
-        .docs
-        .map((document) => document.data())
-        .toList();
-
+      return (await ref.get()).docs.map((document) => document.data()).toList();
     } catch (error) {
       rethrow;
     }
+  }
+
+  @override
+  Future<String> addProductImage({required File image}) async {
+    final snapshot = await _firebaseStorage.ref()
+        .child('images/${image.path}')
+        .putFile(image);
+    return snapshot.ref.getDownloadURL();
   }
 }
