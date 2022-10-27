@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:products_repository/products_repository.dart';
 
@@ -14,10 +15,22 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   late StreamSubscription<dynamic> itemsSubscription;
 
   void fetchList() {
+
     try {
       itemsSubscription = repository.getFavorites().listen((items) {
-        emit(FavoritesState.success(items));
+        final itemMap = groupBy(items, (Product obj) => obj.category.category);
+        final itemsList = <List<Product>>[];
+
+        itemMap.entries.map((e) {
+          itemsList.add(e.value);
+        }).toList();
+
+        emit(FavoritesState.success(itemsList));
       });
+
+    /*  itemsSubscription = repository.getFavorites().listen((items) {
+        emit(FavoritesState.success(items));
+      });*/
     } on Exception {
       emit(const FavoritesState.failure());
     }

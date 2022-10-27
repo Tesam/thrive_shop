@@ -5,18 +5,18 @@ enum FavoritesStatus { loading, success, failure }
 class FavoritesState extends Equatable {
   const FavoritesState._({
     this.status = FavoritesStatus.loading,
-    this.items = const <Product>[],
+    this.items = const <List<Product>>[],
   });
 
   const FavoritesState.loading() : this._();
 
-  const FavoritesState.success(List<Product> items)
+  const FavoritesState.success(List<List<Product>> items)
       : this._(status: FavoritesStatus.success, items: items);
 
   const FavoritesState.failure() : this._(status: FavoritesStatus.failure);
 
   final FavoritesStatus status;
-  final List<Product> items;
+  final List<List<Product>> items;
 
   @override
   List<Object> get props => [status, items];
