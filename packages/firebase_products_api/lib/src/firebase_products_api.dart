@@ -270,7 +270,7 @@ class FirebaseProductsApi implements ProductsApi {
   @override
   Future<String> addProductImage({required File image}) async {
     final snapshot = await _firebaseStorage.ref()
-        .child('images/${image.path}')
+        .child('images/product_${DateTime.now()}')
         .putFile(image);
     return snapshot.ref.getDownloadURL();
   }
