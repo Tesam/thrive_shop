@@ -13,17 +13,20 @@ class FavoriteProductsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: ProductListHeader(
-        category: _products.first.category,
+    return Theme(
+      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+      child: ExpansionTile(
+        title: ProductListHeader(
+          category: _products.first.category,
+        ),
+        children: <Widget>[
+          ..._products.map(
+            (item) => FavoriteProductsListItem(
+              product: item,
+            ),
+          )
+        ],
       ),
-      children: <Widget>[
-        ..._products.map(
-          (item) => FavoriteProductsListItem(
-            product: item,
-          ),
-        )
-      ],
     );
   }
 }
