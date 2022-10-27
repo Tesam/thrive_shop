@@ -40,7 +40,7 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     emit(
       state.copyWith(
         product: product.valid ? product : ProductInput.pure(value),
-        status: Formz.validate([product, state.category, state.imageUrl]),
+        status: Formz.validate([product,]),
       ),
     );
   }
@@ -62,7 +62,7 @@ class ProductFormCubit extends Cubit<ProductFormState> {
       emit(
         state.copyWith(
           imageUrl: imageUrl.valid ? imageUrl : ImageUrlInput.pure(url),
-          status: Formz.validate([imageUrl, state.product, state.category]),
+          status: Formz.validate([imageUrl,]),
         ),
       );
 
