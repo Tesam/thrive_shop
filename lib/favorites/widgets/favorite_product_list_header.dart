@@ -3,8 +3,10 @@ import 'package:products_api/products_api.dart';
 import 'package:thrive_shop/widgets/category_header.dart';
 
 class FavoriteProductListHeader extends StatelessWidget {
-  const FavoriteProductListHeader({super.key, required Category category})
-      : _category = category;
+  const FavoriteProductListHeader({
+    super.key,
+    required Category category,
+  }) : _category = category;
 
   final Category _category;
 

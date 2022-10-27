@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/products_api.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
-import 'package:thrive_shop/shopping_list/widgets/widgets.dart';
+import 'package:thrive_shop/shopping_list/widgets/products_section.dart';
 
 class ProductListContent extends StatelessWidget {
-  const ProductListContent({super.key, required List<Product> items})
+  const ProductListContent({super.key, required List<List<Product>> items})
       : _items = items;
 
-  final List<Product> _items;
+  final List<List<Product>> _items;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class ProductListContent extends StatelessWidget {
       child: (_items.isEmpty)
           ? Center(
               child: Text(
-                "Oops you don't have any product!",
+                'Oops the product list is empty!',
                 style: TextStyle(
                   color: AppColors.lightColorScheme.onPrimaryContainer,
                 ),
@@ -25,35 +25,8 @@ class ProductListContent extends StatelessWidget {
               separatorBuilder: (context, index) {
                 return const Divider();
               },
-              itemBuilder: (_, index) {
-                var isSameCategory = true;
-                final category = _items[index].category.category;
-                final item = _items[index];
-
-                if (index == 0) {
-                  isSameCategory = false;
-                } else {
-                  final prevCategory = _items[index - 1].category.category;
-                  isSameCategory = category == prevCategory;
-                }
-
-                if (index == 0 || !isSameCategory) {
-                  return Column(
-                    children: [
-                      ProductListHeader(
-                        category: item.category,
-                      ),
-                      ProductListItem(
-                        product: item,
-                      ),
-                    ],
-                  );
-                } else {
-                  return ProductListItem(
-                    product: item,
-                  );
-                }
-              },
+              itemBuilder: (_, index) =>
+                  ProductsSection(products: _items[index]),
               itemCount: _items.length,
             ),
     );

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:products_repository/products_repository.dart';
 
@@ -16,7 +17,14 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
   void fetchList() {
     try {
       itemsSubscription = repository.getProducts().listen((items) {
-        emit(ShoppingListState.success(items));
+        final itemMap = groupBy(items, (Product obj) => obj.category.category);
+        final itemsList = <List<Product>>[];
+
+        itemMap.entries.map((e) {
+          itemsList.add(e.value);
+        }).toList();
+
+        emit(ShoppingListState.success(itemsList));
       });
     } on Exception {
       emit(const ShoppingListState.failure());
@@ -25,19 +33,24 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
 
   void searchList(String query) {
     try {
-      final productSearchList = <Product>[];
+      final productSearchList = <List<Product>>[];
       productSearchList.addAll(state.items);
 
       if (query.isNotEmpty) {
-        final productListData = <Product>[];
-        for (final item in productSearchList) {
-          if (item.product.contains(query) ||
-              item.category.category.contains(query)) {
-            productListData.add(item);
+        final productList = <List<Product>>[];
+        for (final items in productSearchList) {
+          final productListData = <Product>[];
+          for (final item in items) {
+            if (item.product.contains(query) ||
+                item.category.category.contains(query)) {
+              productListData.add(item);
+            }
+          }
+          if (productListData.isNotEmpty) {
+            productList.add(productListData);
           }
         }
-
-        emit(ShoppingListState.success(productListData));
+        emit(ShoppingListState.success(productList));
         return;
       } else {
         fetchList();
@@ -82,19 +95,4 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
     itemsSubscription.cancel();
     return super.close();
   }
-/* Future<void> deleteItem(String id) async {
-    final deleteInProgress = state.items.map((item) {
-      return item.id == id ? item.copyWith(isDeleting: true) : item;
-    }).toList();
-
-    emit(ComplexListState.success(deleteInProgress));
-
-    unawaited(
-      repository.deleteItem(id).then((_) {
-        final deleteSuccess = List.of(state.items)
-          ..removeWhere((element) => element.id == id);
-        emit(ComplexListState.success(deleteSuccess));
-      }),
-    );
-  }*/
 }

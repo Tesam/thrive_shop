@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/products_api.dart';
-import 'package:thrive_shop/color_schemes.g.dart';
 
 class CategoryHeader extends StatelessWidget {
   const CategoryHeader({
     super.key,
     required Category category,
-  }) : _category = category;
+  })  : _category = category;
 
   final Category _category;
 
@@ -31,15 +30,6 @@ class CategoryHeader extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
           ),
         ),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.expand_more,
-            color: AppColors.lightColorScheme.onBackground,
-          ),
-          padding: EdgeInsets.zero,
-          visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-        )
       ],
     );
   }
