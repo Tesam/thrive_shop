@@ -6,23 +6,26 @@ class ProductsSection extends StatelessWidget {
   const ProductsSection({
     super.key,
     required List<Product> products,
-  })  : _products = products;
+  }) : _products = products;
 
   final List<Product> _products;
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: ProductListHeader(
-        category: _products.first.category,
+    return Theme(
+      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+      child: ExpansionTile(
+        title: ProductListHeader(
+          category: _products.first.category,
+        ),
+        children: <Widget>[
+          ..._products.map(
+            (item) => ProductListItem(
+              product: item,
+            ),
+          )
+        ],
       ),
-      children: <Widget>[
-        ..._products.map(
-              (item) => ProductListItem(
-            product: item,
-          ),
-        )
-      ],
     );
   }
 }
