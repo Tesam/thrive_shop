@@ -14,7 +14,7 @@ class _ProductPageState extends State<ProductPage> {
   bool _isProduct = true;
   String _title = 'Product';
 
-  void changeMode(bool value) {
+  void changeMode({required bool value}) {
     if (value) {
       setState(() {
         _isProduct = true;
@@ -46,7 +46,7 @@ class _ProductPageState extends State<ProductPage> {
               ),
               Switch(
                 value: _isProduct,
-                onChanged: (value) => changeMode(value),
+                onChanged: (value) => changeMode(value:value),
                 activeColor: AppColors.lightColorScheme.primary,
               )
             ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/products_api.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
-import 'package:thrive_shop/shopping_list/widgets/products_section.dart';
+import 'package:thrive_shop/shopping_list/widgets/widgets.dart';
 
 class ProductListContent extends StatelessWidget {
   const ProductListContent({super.key, required List<List<Product>> items})

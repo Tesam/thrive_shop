@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:products_repository/products_repository.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
-import 'package:thrive_shop/home/view/home_page.dart';
+import 'package:thrive_shop/home/home.dart';
 import 'package:thrive_shop/l10n/l10n.dart';
 
 class App extends StatelessWidget {
