@@ -10,6 +10,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_products_api/firebase_products_api.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:products_api/products_api.dart';
 
 /// {@template firebase_products_api}
@@ -17,10 +18,10 @@ import 'package:products_api/products_api.dart';
 /// {@endtemplate}
 class FirebaseProductsApi implements ProductsApi {
   /// {@macro firebase_products_api}
-  const FirebaseProductsApi(
-      {required FirebaseFirestore fireStore,
-      required FirebaseStorage firebaseStorage,})
-      : _firebaseFirestore = fireStore,
+  const FirebaseProductsApi({
+    required FirebaseFirestore fireStore,
+    required FirebaseStorage firebaseStorage,
+  })  : _firebaseFirestore = fireStore,
         _firebaseStorage = firebaseStorage;
 
   final FirebaseFirestore _firebaseFirestore;
@@ -29,10 +30,14 @@ class FirebaseProductsApi implements ProductsApi {
   @override
   Future<bool> addToFavorite({required String productId}) async {
     final productRef = _firebaseFirestore.collection('products');
+    final now = DateTime.now();
+    final formatter = DateFormat('yyyy-MM-dd');
+    final formattedDate = formatter.format(now);
+
     try {
-      await productRef
-          .doc(productId)
-          .set({'is_favorite': true}, SetOptions(merge: true));
+      await productRef.doc(productId).set(
+          {'is_favorite': true, 'favorite_date': formattedDate},
+          SetOptions(merge: true),);
 
       return true;
     } catch (error) {
@@ -269,7 +274,8 @@ class FirebaseProductsApi implements ProductsApi {
 
   @override
   Future<String> addProductImage({required File image}) async {
-    final snapshot = await _firebaseStorage.ref()
+    final snapshot = await _firebaseStorage
+        .ref()
         .child('images/product_${DateTime.now()}')
         .putFile(image);
     return snapshot.ref.getDownloadURL();
