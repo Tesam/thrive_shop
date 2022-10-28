@@ -25,18 +25,17 @@ void main() {
 
     test(
         'The initial state is CategoryFormState'
-            ' (category: , color:0xFF006783, state:FormzStatus.pure)', () {
+        ' (category: , color:0xFF006783, state:FormzStatus.pure)', () {
       expect(categoryFormCubit.state, const CategoryFormState());
     });
 
     blocTest(
       'the cubit should emit a CategoryFormState(category:Category1,'
-          ' color:0xFF006783, state:FormzStatus.valid) when onCategoryChange()'
-          ' is called',
+      ' color:0xFF006783, state:FormzStatus.valid) when onCategoryChange()'
+      ' is called',
       build: () => categoryFormCubit,
       act: (cubit) => cubit.onCategoryChanged('Category 1'),
-      expect: () =>
-      [
+      expect: () => [
         const CategoryFormState(
           category: CategoryInput.dirty('Category 1'),
           status: FormzStatus.valid,
@@ -46,12 +45,11 @@ void main() {
 
     blocTest(
       'the cubit should emit a CategoryFormState(category: ,'
-          ' color:0xFF006711, state:FormzStatus.valid) when onColorChange()'
-          ' is called',
+      ' color:0xFF006711, state:FormzStatus.valid) when onColorChange()'
+      ' is called',
       build: () => categoryFormCubit,
       act: (cubit) => cubit.onColorChanged(0xFF006711),
-      expect: () =>
-      [
+      expect: () => [
         const CategoryFormState(
           color: ColorInput.dirty(0xFF006711),
           status: FormzStatus.valid,
@@ -61,16 +59,15 @@ void main() {
 
     blocTest(
       'the cubit should emit a CategoryFormState(category: , '
-          'color:0xFF006711, state:FormzStatus.valid) when '
-          'onCategoryUnfocused()is called',
+      'color:0xFF006711, state:FormzStatus.valid) when '
+      'onCategoryUnfocused()is called',
       build: () => categoryFormCubit,
       act: (cubit) {
         cubit
           ..onCategoryChanged('Category 2')
           ..onCategoryUnfocused();
       },
-      expect: () =>
-      [
+      expect: () => [
         const CategoryFormState(
           category: CategoryInput.dirty('Category 2'),
           status: FormzStatus.valid,
