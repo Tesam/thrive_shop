@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:products_api/products_api.dart';
 import 'package:thrive_shop/favorites/widgets/widgets.dart';
-import 'package:thrive_shop/shopping_list/widgets/product_list_header.dart';
 
 class FavoriteProductsSection extends StatelessWidget {
   const FavoriteProductsSection({
@@ -16,7 +15,7 @@ class FavoriteProductsSection extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
-        title: ProductListHeader(
+        title: FavoriteProductListHeader(
           category: _products.first.category,
         ),
         children: <Widget>[
