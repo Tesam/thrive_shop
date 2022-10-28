@@ -19,7 +19,7 @@ class ProductModel extends Product{
   required super.imageUrl, super.isFavorite, super.favoriteDate,
   super.productId,}) : super(category: category);
 
-  /// The product [categoryModel].
+  /// The product [CategoryModel].
   ///
   /// [CategoryModel] is serialized and deserialized using [toJson] and
   /// [CategoryModel.fromJson] respectively.
