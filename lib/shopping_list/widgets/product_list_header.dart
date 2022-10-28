@@ -28,7 +28,7 @@ class ProductListHeader extends StatelessWidget {
         confirmDismiss: (direction) {
           return showDialog(
             context: context,
-            builder: (BuildContext context) {
+            builder: (BuildContext dialogContext) {
               return AlertDialog(
                 title: Text(
                   'Delete ${_category.category}',
@@ -43,7 +43,7 @@ class ProductListHeader extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () => Navigator.of(dialogContext).pop(),
                   ),
                   TextButton(
                     child: Text(
@@ -56,7 +56,7 @@ class ProductListHeader extends StatelessWidget {
                       context.read<ShoppingListCubit>().deleteCategory(
                             categoryId: _category.categoryId,
                           );
-                      Navigator.of(context).pop();
+                      Navigator.of(dialogContext).pop();
                     },
                   ),
                 ],
