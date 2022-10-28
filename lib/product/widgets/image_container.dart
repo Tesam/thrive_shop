@@ -28,25 +28,45 @@ class ImageContainer extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
             ),
-            child: (_imageUrl.isNotEmpty)
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: (_imageUrl.isNotEmpty)
+                  ? Image.network(
                       _imageUrl,
                       height: 200,
                       width: double.infinity,
                       fit: BoxFit.fill,
-                    ),
-                  )
-                : ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      'https://i.imgur.com/sUFH1Aq.png',
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress,) {
+                        if (loadingProgress == null) return child;
+                        return SizedBox(
+                          height: 200,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                  : Container(
                       height: 200,
-                      width: double.infinity,
-                      fit: BoxFit.fill,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: AppColors.lightColorScheme.background,
+                      ),
+                      child: Center(
+                        child: Icon(
+                          Icons.image,
+                          size: 100,
+                          color: AppColors.lightColorScheme.inversePrimary,
+                        ),
+                      ),
                     ),
-                  ),
+            ),
           ),
           const SizedBox(height: 20),
           ElevatedButton(
@@ -72,9 +92,7 @@ class ImageContainer extends StatelessWidget {
               }
             },
             child: Text(
-              (_imageUrl.isNotEmpty)
-                  ? 'Change Image'
-                  : 'Upload Image',
+              (_imageUrl.isNotEmpty) ? 'Change Image' : 'Upload Image',
               style: TextStyle(
                 color: AppColors.lightColorScheme.onPrimary,
               ),
