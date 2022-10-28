@@ -36,8 +36,9 @@ class FirebaseProductsApi implements ProductsApi {
 
     try {
       await productRef.doc(productId).set(
-          {'is_favorite': true, 'favorite_date': formattedDate},
-          SetOptions(merge: true),);
+        {'is_favorite': true, 'favorite_date': formattedDate},
+        SetOptions(merge: true),
+      );
 
       return true;
     } catch (error) {
@@ -137,7 +138,6 @@ class FirebaseProductsApi implements ProductsApi {
       ..delete(categoryIdentifiersRef.doc(categoryName));
 
     try {
-      // TODO(Techi): add transaction for delete products and batches.
       final categoryProducts = await productRef
           .where('category.category', isEqualTo: categoryName)
           .withConverter<ProductModel>(

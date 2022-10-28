@@ -1,6 +1,6 @@
-import 'package:firebase_products_api/src/models/category_model.dart';
 import 'package:firebase_products_api/src/models/models.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:products_api/products_api.dart';
 
 void main() {
   group('Product Model', () {
@@ -34,6 +34,10 @@ void main() {
           createProductModel(),
           equals(createProductModel()),
         );
+      });
+
+      test('is a product object', () {
+        expect(createProductModel(), isA<Product>());
       });
     });
 
