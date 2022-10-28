@@ -28,7 +28,7 @@ class CategoryFormCubit extends Cubit<CategoryFormState> {
     emit(
       state.copyWith(
         color: color.valid ? color : ColorInput.pure(value),
-        status: Formz.validate([color, state.category]),
+        status: Formz.validate([color,]),
       ),
     );
   }
