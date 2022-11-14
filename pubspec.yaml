@@ -9,13 +9,13 @@ environment:
 
 dependencies:
   bloc: ^8.1.0
-  cloud_firestore: ^4.0.2
+  cloud_firestore: ^4.0.5
   collection: ^1.16.0
   equatable: ^2.0.5
-  firebase_core: ^2.1.0
+  firebase_core: ^2.2.0
   firebase_products_api:
     path: packages/firebase_products_api
-  firebase_storage: ^11.0.2
+  firebase_storage: ^11.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1

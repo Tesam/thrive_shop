@@ -1,4 +1,3 @@
-import 'package:firebase_products_api/firebase_products_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -121,7 +120,7 @@ class ProductFormContentState extends State<ProductFormContent> {
                       const SizedBox(
                         height: 15,
                       ),
-                      CSMDropdown<CategoryModel>(
+                      /*  CSMDropdown<CategoryModel>(
                         element: state.category.value,
                         onChanged: (CategoryModel? value) {
                           context
@@ -129,7 +128,7 @@ class ProductFormContentState extends State<ProductFormContent> {
                               .onCategoryChanged(value!);
                         },
                         items: state.items,
-                      ),
+                      ),*/
                       const SizedBox(
                         height: 20,
                       ),

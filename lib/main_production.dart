@@ -24,5 +24,5 @@ void main() async {
     firebaseStorage: FirebaseStorage.instance,
   );
 
-  bootstrap(productsApi: productsApi);
+  await bootstrap(productsApi: productsApi);
 }

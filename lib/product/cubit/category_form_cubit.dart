@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_products_api/firebase_products_api.dart';
 import 'package:formz/formz.dart';
 import 'package:products_repository/products_repository.dart';
 import 'package:thrive_shop/product/models/models.dart';
@@ -59,7 +58,7 @@ class CategoryFormCubit extends Cubit<CategoryFormState> {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
         await repository.createCategory(
-          category: CategoryModel(
+          category: Category(
             category: state.category.value,
             color: state.color.value,
           ),

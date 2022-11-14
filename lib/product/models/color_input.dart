@@ -8,8 +8,6 @@ class ColorInput extends FormzInput<int, ColorValidationError> {
 
   @override
   ColorValidationError? validator(int? value) {
-    return value != null
-        ? null
-        : ColorValidationError.invalid;
+    return value != null ? null : ColorValidationError.invalid;
   }
 }

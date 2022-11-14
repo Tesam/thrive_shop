@@ -20,6 +20,10 @@ class CategoryModel extends Category {
     super.categoryId,
   });
 
+  /// Converts this [Category] into a [CategoryModel].
+  factory CategoryModel.fromCategory(Category category) =>
+      CategoryModel(category: category.category, color: category.color);
+
   /// Deserializes the given [json] Map into a [CategoryModel].
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);

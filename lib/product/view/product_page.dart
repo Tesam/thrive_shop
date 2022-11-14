@@ -4,13 +4,13 @@ import 'package:thrive_shop/product/view/category_form.dart';
 import 'package:thrive_shop/product/view/product_form.dart';
 
 class ProductPage extends StatefulWidget {
-  const ProductPage({Key? key}) : super(key: key);
+  const ProductPage({super.key});
 
   @override
-  _ProductPageState createState() => _ProductPageState();
+  ProductPageState createState() => ProductPageState();
 }
 
-class _ProductPageState extends State<ProductPage> {
+class ProductPageState extends State<ProductPage> {
   bool _isProduct = true;
   String _title = 'Product';
 
@@ -46,12 +46,14 @@ class _ProductPageState extends State<ProductPage> {
               ),
               Switch(
                 value: _isProduct,
-                onChanged: (value) => changeMode(value:value),
+                onChanged: (value) => changeMode(value: value),
                 activeColor: AppColors.lightColorScheme.primary,
               )
             ],
           ),
-          const SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
           Expanded(
             child: _isProduct ? const ProductForm() : const CategoryForm(),
           ),

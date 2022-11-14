@@ -39,6 +39,7 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for linux - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
+      // ignore: no_default_cases
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -70,7 +71,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '910876882160',
     projectId: 'thrive-shop',
     storageBucket: 'thrive-shop.appspot.com',
-    iosClientId: '910876882160-59ta2l4ndbaqogdmv3s9d089oc34s0jv.apps.googleusercontent.com',
+    iosClientId:
+        '910876882160-59ta2l4ndbaqogdmv3s9d089oc34s0jv.apps.googleusercontent.com',
     iosBundleId: 'com.example.verygoodcore.thrive-shop',
   );
 }

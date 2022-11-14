@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppColors{
+class AppColors {
   static const lightColorScheme = ColorScheme(
     brightness: Brightness.light,
     primary: Color(0xFF773FBF),
@@ -65,4 +65,3 @@ class AppColors{
     surfaceTint: Color(0xFFD8B9FF),
   );
 }
-

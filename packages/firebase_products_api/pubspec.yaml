@@ -8,8 +8,8 @@ environment:
   flutter: 3.3.3
 
 dependencies:
-  cloud_firestore: ^4.0.2
-  firebase_storage: ^11.0.2
+  cloud_firestore: ^4.0.5
+  firebase_storage: ^11.0.5
   flutter:
     sdk: flutter
   intl: ^0.17.0

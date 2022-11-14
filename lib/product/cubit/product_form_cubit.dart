@@ -99,13 +99,13 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     if (state.status.isValidated) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
-        await repository.createProduct(
+      /*  await repository.createProduct(
           product: ProductModel(
             product: state.product.value,
             category: state.category.value,
             imageUrl: state.imageUrl.value,
           ),
-        );
+        );*/
 
         emit(state.copyWith(status: FormzStatus.submissionSuccess));
       } on Exception {

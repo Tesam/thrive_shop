@@ -48,6 +48,10 @@ class FirebaseProductsApi implements ProductsApi {
 
   @override
   Future<bool> createCategory({required Category category}) async {
+
+    final categoryModel =
+        CategoryModel.fromCategory(category);
+
     final batch = _firebaseFirestore.batch();
     final categoryRef = _firebaseFirestore
         .collection('categories')
@@ -62,10 +66,10 @@ class FirebaseProductsApi implements ProductsApi {
         .collection(
           'category-identifiers',
         )
-        .doc(category.category);
+        .doc(categoryModel.category);
 
     batch
-      ..set(categoryRef, category as CategoryModel)
+      ..set(categoryRef, categoryModel)
       ..update(
         categoryRef,
         {'category_id': categoryRef.id},
