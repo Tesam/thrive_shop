@@ -7,9 +7,10 @@ import 'package:thrive_shop/widgets/category_header.dart';
 import 'package:thrive_shop/widgets/delete_swipe_background.dart';
 
 class ProductListHeader extends StatelessWidget {
-  const ProductListHeader(
-      {super.key, required Category category,})
-      : _category = category;
+  const ProductListHeader({
+    super.key,
+    required Category category,
+  }) : _category = category;
 
   final Category _category;
 

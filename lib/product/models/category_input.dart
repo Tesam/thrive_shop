@@ -8,13 +8,13 @@ class CategoryInput extends FormzInput<String, CategoryValidationError> {
 
   @override
   CategoryValidationError? validator(String? value) {
-    if(value != null){
-      if(value.isNotEmpty){
+    if (value != null) {
+      if (value.isNotEmpty) {
         return null;
-      }else{
+      } else {
         return CategoryValidationError.invalid;
       }
-    }else{
+    } else {
       return CategoryValidationError.invalid;
     }
   }

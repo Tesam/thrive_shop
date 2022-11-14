@@ -38,7 +38,11 @@ Future<void> bootstrap({required ProductsApi productsApi}) async {
   final productsRepository = ProductsRepository(productsApi: productsApi);
 
   await runZonedGuarded(
-    () async => runApp(App(productsRepository: productsRepository,)),
+    () async => runApp(
+      App(
+        productsRepository: productsRepository,
+      ),
+    ),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }

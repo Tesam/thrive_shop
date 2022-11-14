@@ -40,7 +40,9 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     emit(
       state.copyWith(
         product: product.valid ? product : ProductInput.pure(value),
-        status: Formz.validate([product,]),
+        status: Formz.validate([
+          product,
+        ]),
       ),
     );
   }
@@ -50,19 +52,23 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     emit(
       state.copyWith(
         category: category.valid ? category : CategoryModelInput.pure(value),
-        status: Formz.validate([category,]),
+        status: Formz.validate([
+          category,
+        ]),
       ),
     );
   }
 
   Future<void> onImageUrlChanged(File image) async {
-    try{
+    try {
       final url = await repository.addProductImage(image: image);
       final imageUrl = ImageUrlInput.dirty(url);
       emit(
         state.copyWith(
           imageUrl: imageUrl.valid ? imageUrl : ImageUrlInput.pure(url),
-          status: Formz.validate([imageUrl,]),
+          status: Formz.validate([
+            imageUrl,
+          ]),
         ),
       );
 
@@ -99,7 +105,7 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     if (state.status.isValidated) {
       emit(state.copyWith(status: FormzStatus.submissionInProgress));
       try {
-      /*  await repository.createProduct(
+        /*  await repository.createProduct(
           product: ProductModel(
             product: state.product.value,
             category: state.category.value,

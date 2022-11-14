@@ -67,7 +67,8 @@ class CategoryFormContentState extends State<CategoryFormContent> {
                 content: Text(
                   'Please, fill the empty fields',
                   style: TextStyle(
-                      color: AppColors.lightColorScheme.onPrimaryContainer,),
+                    color: AppColors.lightColorScheme.onPrimaryContainer,
+                  ),
                 ),
                 backgroundColor: AppColors.lightColorScheme.primaryContainer,
               ),

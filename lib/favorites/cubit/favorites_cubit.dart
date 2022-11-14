@@ -15,7 +15,6 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   late StreamSubscription<dynamic> itemsSubscription;
 
   void fetchList() {
-
     try {
       itemsSubscription = repository.getFavorites().listen((items) {
         final itemMap = groupBy(items, (Product obj) => obj.category.category);
@@ -28,7 +27,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
         emit(FavoritesState.success(itemsList));
       });
 
-    /*  itemsSubscription = repository.getFavorites().listen((items) {
+      /*  itemsSubscription = repository.getFavorites().listen((items) {
         emit(FavoritesState.success(items));
       });*/
     } on Exception {
@@ -38,9 +37,9 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
   bool setFavoriteState({required bool isFavorite, required String productId}) {
     try {
-      if(isFavorite){
+      if (isFavorite) {
         repository.removeFromFavorite(productId: productId);
-      }else{
+      } else {
         repository.addToFavorite(productId: productId);
       }
       return true;

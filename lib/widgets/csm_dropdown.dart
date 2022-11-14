@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
 
 class CSMDropdown<T> extends StatelessWidget {
-  const CSMDropdown(
-      {super.key,
-      required T element,
-      required ValueChanged<T?>? onChanged,
-      required List<T> items,})
-      : _element = element,
-        _onChanged = onChanged, _items = items;
+  const CSMDropdown({
+    super.key,
+    required T element,
+    required ValueChanged<T?>? onChanged,
+    required List<T> items,
+  })  : _element = element,
+        _onChanged = onChanged,
+        _items = items;
 
   final T _element;
   final ValueChanged<T?>? _onChanged;
@@ -33,8 +34,7 @@ class CSMDropdown<T> extends StatelessWidget {
             color: AppColors.lightColorScheme.onPrimaryContainer,
           ),
           onChanged: _onChanged,
-          items: _items
-              .map<DropdownMenuItem<T>>((T value) {
+          items: _items.map<DropdownMenuItem<T>>((T value) {
             return DropdownMenuItem<T>(
               value: value,
               child: Text(value.toString()),

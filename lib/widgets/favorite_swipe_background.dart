@@ -11,7 +11,7 @@ class FavoriteSwipeBackground extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: Row(
-          children: const[
+          children: const [
             SizedBox(
               width: 20,
             ),

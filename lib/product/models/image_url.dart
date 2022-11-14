@@ -8,13 +8,13 @@ class ImageUrlInput extends FormzInput<String, ImageUrlValidationError> {
 
   @override
   ImageUrlValidationError? validator(String? value) {
-    if(value != null){
-      if(value.isNotEmpty){
+    if (value != null) {
+      if (value.isNotEmpty) {
         return null;
-      }else{
+      } else {
         return ImageUrlValidationError.invalid;
       }
-    }else{
+    } else {
       return ImageUrlValidationError.invalid;
     }
   }

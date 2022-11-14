@@ -22,7 +22,8 @@ class CSMButton extends StatelessWidget {
         child: Text(
           _title,
           style: TextStyle(
-            color: AppColors.lightColorScheme.onPrimary,),
+            color: AppColors.lightColorScheme.onPrimary,
+          ),
         ),
       ),
     );

@@ -8,13 +8,13 @@ class ProductInput extends FormzInput<String, ProductValidationError> {
 
   @override
   ProductValidationError? validator(String? value) {
-    if(value != null){
-      if(value.isNotEmpty){
+    if (value != null) {
+      if (value.isNotEmpty) {
         return null;
-      }else{
+      } else {
         return ProductValidationError.invalid;
       }
-    }else{
+    } else {
       return ProductValidationError.invalid;
     }
   }

@@ -5,7 +5,7 @@ class CategoryHeader extends StatelessWidget {
   const CategoryHeader({
     super.key,
     required Category category,
-  })  : _category = category;
+  }) : _category = category;
 
   final Category _category;
 

@@ -43,7 +43,7 @@ class FavoriteProductsListItem extends StatelessWidget {
                 TextButton(
                   child: Text(
                     (_product.isFavorite) ? 'REMOVE' : 'ADD',
-                    style:  (_product.isFavorite)
+                    style: (_product.isFavorite)
                         ? TextStyle(
                             color: AppColors.lightColorScheme.error,
                           )
@@ -64,9 +64,9 @@ class FavoriteProductsListItem extends StatelessWidget {
                           backgroundColor: AppColors.lightColorScheme.secondary,
                           content: (_product.isFavorite)
                               ? const Text('The product was removed from '
-                              'Favorites successfully!')
+                                  'Favorites successfully!')
                               : const Text('The product was add to Favorites '
-                              'successfully!'),
+                                  'successfully!'),
                         ),
                       );
                     }
@@ -89,9 +89,9 @@ class FavoriteProductsListItem extends StatelessWidget {
 
   void _onFavorite(BuildContext context) {
     final isSuccessful = context.read<FavoritesCubit>().setFavoriteState(
-      isFavorite: _product.isFavorite,
-      productId: _product.productId,
-    );
+          isFavorite: _product.isFavorite,
+          productId: _product.productId,
+        );
 
     if (isSuccessful) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -99,9 +99,9 @@ class FavoriteProductsListItem extends StatelessWidget {
           backgroundColor: AppColors.lightColorScheme.secondary,
           content: (_product.isFavorite)
               ? const Text('The product was removed from Favorites '
-              'successfully!')
+                  'successfully!')
               : const Text('The product was add to Favorites '
-              'successfully!'),
+                  'successfully!'),
         ),
       );
     }

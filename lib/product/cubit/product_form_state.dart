@@ -32,6 +32,5 @@ class ProductFormState extends Equatable {
   }
 
   @override
-  List<Object> get props =>
-      [product, category, imageUrl, items, status];
+  List<Object> get props => [product, category, imageUrl, items, status];
 }
