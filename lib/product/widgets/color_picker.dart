@@ -3,11 +3,11 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:thrive_shop/color_schemes.g.dart';
 
 class ColorPickerContainer extends StatelessWidget {
-  const ColorPickerContainer(
-      {super.key,
-      required Color pickerColor,
-      required ValueChanged<Color> onColorChanged,})
-      : _pickerColor = pickerColor,
+  const ColorPickerContainer({
+    super.key,
+    required Color pickerColor,
+    required ValueChanged<Color> onColorChanged,
+  })  : _pickerColor = pickerColor,
         _onColorChanged = onColorChanged;
 
   final Color _pickerColor;
@@ -40,6 +40,7 @@ class ColorPickerContainer extends StatelessWidget {
             height: 50,
           ),
           onTap: () {
+            // ignore: inference_failure_on_function_invocation
             showDialog(
               context: context,
               builder: (BuildContext context) {

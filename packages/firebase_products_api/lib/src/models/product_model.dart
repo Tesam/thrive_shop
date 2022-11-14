@@ -13,21 +13,27 @@ part 'product_model.g.dart';
 /// [ProductModel.fromJson] respectively.
 /// {@endtemplate}
 @JsonSerializable(explicitToJson: true)
-class ProductModel extends Product{
+class ProductModel extends Product {
   /// {@macro ProductModel}
-  const ProductModel({required super.product, required this.category,
-  required super.imageUrl, super.isFavorite, super.favoriteDate,
-  super.productId,}) : super(category: category);
+  const ProductModel({
+    required super.product,
+    required this.category,
+    required super.imageUrl,
+    super.isFavorite,
+    super.favoriteDate,
+    super.productId,
+  }) : super(category: category);
+
+  /// Deserializes the given [json] Map into a [ProductModel].
+  factory ProductModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductModelFromJson(json);
 
   /// The product [CategoryModel].
   ///
   /// [CategoryModel] is serialized and deserialized using [toJson] and
   /// [CategoryModel.fromJson] respectively.
+  // ignore: annotate_overrides, overridden_fields
   final CategoryModel category;
-
-  /// Deserializes the given [json] Map into a [ProductModel].
-  factory ProductModel.fromJson(Map<String, dynamic> json) =>
-  _$ProductModelFromJson(json);
 
   /// Converts this [ProductModel] into a [Map].
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);

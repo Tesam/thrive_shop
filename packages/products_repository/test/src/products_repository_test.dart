@@ -5,9 +5,7 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:products_repository/products_repository.dart';
 // ignore_for_file: prefer_const_constructors
-import 'package:test/test.dart';
 
 void main() {
   /*group('ProductsRepository', () {

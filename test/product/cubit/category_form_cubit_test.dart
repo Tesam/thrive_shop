@@ -29,6 +29,7 @@ void main() {
       expect(categoryFormCubit.state, const CategoryFormState());
     });
 
+    // ignore: inference_failure_on_function_invocation
     blocTest(
       'the cubit should emit a CategoryFormState(category:Category1,'
       ' color:0xFF006783, state:FormzStatus.valid) when onCategoryChange()'
@@ -43,6 +44,7 @@ void main() {
       ],
     );
 
+    // ignore: inference_failure_on_function_invocation
     blocTest(
       'the cubit should emit a CategoryFormState(category: ,'
       ' color:0xFF006711, state:FormzStatus.valid) when onColorChange()'
@@ -57,6 +59,7 @@ void main() {
       ],
     );
 
+    // ignore: inference_failure_on_function_invocation
     blocTest(
       'the cubit should emit a CategoryFormState(category: , '
       'color:0xFF006711, state:FormzStatus.valid) when '

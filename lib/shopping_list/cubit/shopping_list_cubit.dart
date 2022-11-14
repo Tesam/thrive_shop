@@ -34,6 +34,7 @@ class ShoppingListCubit extends Cubit<ShoppingListState> {
   void searchList(String query) {
     try {
       final productSearchList = <List<Product>>[];
+      // ignore: cascade_invocations
       productSearchList.addAll(state.items);
 
       if (query.isNotEmpty) {

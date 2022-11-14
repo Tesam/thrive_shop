@@ -36,8 +36,11 @@ class ImageContainer extends StatelessWidget {
                       height: 200,
                       width: double.infinity,
                       fit: BoxFit.fill,
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent? loadingProgress,) {
+                      loadingBuilder: (
+                        BuildContext context,
+                        Widget child,
+                        ImageChunkEvent? loadingProgress,
+                      ) {
                         if (loadingProgress == null) return child;
                         return SizedBox(
                           height: 200,
@@ -85,6 +88,7 @@ class ImageContainer extends StatelessWidget {
 
                 if (image != null) {
                   final file = File(image.path);
+                  // ignore: use_build_context_synchronously
                   await context
                       .read<ProductFormCubit>()
                       .onImageUrlChanged(file);
