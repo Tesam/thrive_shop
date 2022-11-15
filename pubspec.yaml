@@ -25,7 +25,7 @@ dependencies:
   formz: ^0.4.1
   image_picker: ^0.8.6
   intl: ^0.17.0
-  permission_handler: ^9.0.1
+  permission_handler: ^10.2.0
   products_api:
     path: packages/products_api
   products_repository:
