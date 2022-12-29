@@ -12,7 +12,7 @@ dependencies:
   cloud_firestore: ^4.0.5
   collection: ^1.16.0
   equatable: ^2.0.5
-  firebase_core: ^2.2.0
+  firebase_core: ^2.4.1
   firebase_products_api:
     path: packages/firebase_products_api
   firebase_storage: ^11.0.5
